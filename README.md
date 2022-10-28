@@ -17,10 +17,11 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+--	SellSummeryList
+
 CREATE PROCEDURE [dbo].[SellSummeryList]     
 AS
 BEGIN	
-
 	 SELECT C.CustomerName,P.ProductName,P.BuyingPrice,S.SellingPrice,S.Quantity,(S.SellingPrice - P.BuyingPrice) TotalAmount
 	 ,CAST(S.AddDate AS DATE) AddDate
 	 ,(SELECT ((PS.SellingPrice - PS.BuyingPrice)*s.Quantity) FROM Products PS WHERE PS.Id=S.ProductId ) TotalProfit
@@ -39,7 +40,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
---			InvoiceSummary 1
+--	InvoiceSummary 1
 
 CREATE PROCEDURE [dbo].[InvoiceSummary]  
 (
@@ -58,4 +59,4 @@ BEGIN
 END
 
 
-GO ] Step - 5 : Run the application here you can see two Navbar name as (1. Expense Category 2. Daily Expenses)
+GO ] Step - 5 : Run the application here you can see three Navbar name as (1. Product 2. Sell 3.Report)
