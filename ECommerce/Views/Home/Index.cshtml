@@ -1,0 +1,222 @@
+﻿<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -moz-appearance: textfield !important;
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+
+
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <form id="create">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-12 col-xs-12 control-label align-right">Product Name</label>
+                        <div class="col-md-12 col-xs-12">
+                            <div class="input-group">
+                                <input type="hidden" class="form-control" name="Id" id="Id" />
+                                <input type="text" class="form-control" name="ProductName" id="ProductName" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-12 col-xs-12 control-label align-right">Buying Price</label>
+                        <div class="col-md-12 col-xs-12">
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="BuyingPrice" id="BuyingPrice" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-12 col-xs-12 control-label align-right">Selling Price</label>
+                        <div class="col-md-12 col-xs-12">
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="SellingPrice" id="SellingPrice" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>  
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="submit" class="btn btn-primary pull-right" name="btnSave" id="btnSave" value="Save" />
+                            <input type="submit" class="btn btn-warning pull-left" id="btnCancel" value="Cancel" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div>
+    <section class="content">
+        <div class="row" style="padding-bottom: 10px;margin-right:0px;margin-left:0px;">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="box box-info">
+                    <table class="table no-margin display table-striped table-condensed table-hover table-responsive display nowrap">
+                        <thead>
+                            <tr style="background: lightgray;">
+                                <th style="width:5%">SL</th>
+                                <th style="width:15%">Product Name</th>
+                                <th style="width:15%">Buying Price</th>
+                                <th style="width:15%">Selling Price</th>
+                                <th colspan="2" style="width:2%">Modify</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lst"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+<link href="~/Scripts/toastr.min.css" rel="stylesheet" />
+<script src="~/Scripts/App.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/toastr.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        GetProductList();
+
+
+        $('#btnSave').click(function () {
+
+            if ($('#ProductName').val().trim() == '') {
+                toastr["error"]('Product Name Required');
+                return false;
+            }
+            else if ($('#BuyingPrice').val() == '') {
+                toastr["error"]('Buying Price Required');
+                return false;
+            }
+            else if ($('#SellingPrice').val() == '') {
+                toastr["error"]('Selling Price Required');
+                return false;
+            }            
+            else {
+
+                var data = $('#create').serialize();
+
+                $.ajax({
+                    type: 'Post',
+                    url: baseUrl + 'Values/AddUpdateData/',
+                    data: data,
+                    success: function (res) {
+                        console.log(res);
+                        toastr["success"](res.Message);
+                        GetProductList();
+                    }
+                    ,
+                    error: function (response) {
+                        console.log(response);
+                        toastr["error"]('Error');
+                    }
+                });
+            }
+        });
+
+    });
+
+
+    $("#btnCancel").on('click', function (e) {
+        $("#Id").val('');
+        $("#ProductName").val('');
+        $("#BuyingPrice").val('');
+        $("#SellingPrice").val('');
+    });
+
+    function GetProductList() {
+        let rowCount = 0;
+        let htmlData = '';
+        $.ajax({
+            type: "GET",
+            url: baseUrl + 'Values/GetProductList/',
+            contentType: "application/json; charset=utf-8",
+            success: function (res) {
+                console.log(res.result.length);
+                if (res.result.length == 0) {
+                    $("#lst").html('<th>\
+                             <th colspan="4" class="text-center text-danger">' + 'Record not found!' + '</th>\
+                            </th>');
+                }
+                else {
+                    for (i = 0; i < res.result.length; i++) {
+                        rowCount = rowCount + 1;
+                        htmlData +=
+                            '<tr id ="' + res.result[i]['Id'] + '">\
+                                    <td>' + rowCount + '</td>\
+                                    <td>' + res.result[i]['ProductName'] + '</td>\
+                                    <td>' + res.result[i]['BuyingPrice'] + '</td>\
+                                    <td>' + res.result[i]['SellingPrice'] + '</td>\
+                                    <th style="text-align:center !important;">\ <button type="button" id="' + res.result[i]['Id'] + '" name="btnEdit" value="' + res.result[i]['Id'] + '" class="btn btn-primary btnEdit" style="width:70px;">Edit</button> \</th>\
+                        <th style="text-align:center !important;">\ <button type="button" id="' + res.result[i]['Id'] + '" name="btnDelete" value="' + res.result[i]['Id'] + '" class="btn btn-danger btnDelete" style="width:70px;">Delete</button> \</th>\
+                               </tr>';
+                    };
+                    $("#lst").html(htmlData);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+                toastr["error"]('Error');
+            }
+        });
+    };
+
+    $('body').on('click', '.btnEdit', function (e) {
+        var id = e.target.value;
+        $.ajax({
+            type: "GET",
+            url: baseUrl + 'Values/GetEditDataById/' + id,
+            contentType: "application/json; charset=utf-8",
+            success: function (res) {
+                console.log(res);
+                $('#Id').val(res.result[0].Id);
+                $('#ProductName').val(res.result[0].ProductName);
+                $('#BuyingPrice').val(res.result[0].BuyingPrice);
+                $('#SellingPrice').val(res.result[0].SellingPrice);
+            },
+            error: function (res) {
+                console.log(res);
+                toastr["error"]('Error');
+            }
+        });
+    });
+
+    $('body').on('click', '.btnDelete', function (e) {
+        var id = e.target.value;
+        $.ajax({
+            type: "Delete",
+            url: baseUrl + 'Values/DeletItem/' + id,
+            contentType: "application/json; charset=utf-8",
+            success: function (res) {
+                toastr["success"]('Successfull.');
+                GetProductList();
+                console.log(res);
+            },
+            error: function (res) {
+                console.log(res);
+                toastr["error"]('Error');
+            }
+        });
+    });
+
+
+</script>

@@ -1,0 +1,41 @@
+﻿
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="~/Home/SellSummeryList/" target="_blank" class="btn btn-info">Report</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/App.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        
+        $('#btnReport').on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: baseUrl + 'Home/SellSummeryList/',
+                contentType: "application/json; charset=utf-8",
+                success: function (res) {
+                    console.log(res);
+                },
+                error: function (res) {
+                    console.log(res);
+                }
+            });
+        });
+
+
+    });
+
+
+</script>

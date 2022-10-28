@@ -1,0 +1,375 @@
+﻿<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -moz-appearance: textfield !important;
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    select {
+        width: 245px !important;
+    }
+</style>
+
+
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <form id="create">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-12 col-xs-12 control-label align-right">Product Name</label>
+                        <div class="col-md-12 col-xs-12">
+                            <div class="input-group">
+                                <select class="form-control" name="ProductName" id="ProductName" required>
+                                    <option value="" selected>--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-12 col-xs-12 control-label align-right">Buying Price</label>
+                        <div class="col-md-12 col-xs-12">
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="BuyingPrice" id="BuyingPrice" autocomplete="off" disabled style="width: 245px !important;" />
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-12 col-xs-12 control-label align-right">Selling Price</label>
+                        <div class="col-md-12 col-xs-12">
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="SellingPrice" id="SellingPrice" autocomplete="off" disabled style="width: 245px !important;" />
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-12 col-xs-12 control-label align-right">Quantity</label>
+                        <div class="col-md-12 col-xs-12">
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="Quantity" id="Quantity" autocomplete="off" disabled style="width: 245px !important;" />
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-12 col-xs-12 control-label align-right">Customer Name</label>
+                        <div class="col-md-12 col-xs-12">
+                            <div class="input-group">
+                                <select class="form-control" name="CustomerName" id="CustomerName" required>
+                                    <option value="" selected>--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </form>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="button" class="btn btn-primary pull-right" name="btnAdd" id="btnAdd" value="Add" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="jumbotron">
+    <section class="content">
+        <table style="display:none;">
+            <tr id="mainrow">
+                <td>
+                    <select class="form-control productItem productNameDropdown" style="height: 32px; width:100% !important;margin-right:65px;">
+                        <option value="">--Select--</option>
+                    </select>
+                </td>
+
+                <td>
+                    <select class="form-control customerItem customerNameDropdown" style="height: 32px; width:100% !important;margin-right:65px;">
+                        <option value="">--Select--</option>
+                    </select>
+                </td>
+
+                <td>
+                    <input type="number" class="form-control buyingItem" name="BuyingPrice" id="buyingItem" autocomplete="off" disabled />
+                </td>
+
+                <td>
+                    <input type="number" class="form-control sellingItem" name="SellingPrice" id="sellingItem" autocomplete="off" disabled />
+                </td>
+
+                <td>
+                    <input type="number" class="form-control quantityItem" name="Quantity" id="quantityItem" autocomplete="off" disabled />
+                </td>
+
+                <td style="padding-left:15px !important">
+                    <img src="~/Content/Image/Plus.png" width="15%" height="15%" id="plus" />
+                </td>
+                @*<td>
+            <img src="~/Content/Image/Minus.png" width="15%" height="15%" id="minus" />
+        </td>*@
+                @*<td>
+            <input type="button" id="btnRemove" value="Save" class="btn btn-success" />
+        </td>*@
+            </tr>
+        </table>
+    </section>
+
+    <div class="container-fluid">
+        <div class="row" style="padding-bottom: 10px;">
+            <form id="productActivity">
+                <div class="col-md-12 col-xs-12">
+                    <div class="panel panel-default mb0" id="masterDataTable" style="width:100%;height:auto;background:content-box;margin:10px 0px;display:none;">
+                        <div class="col-md-12  col-xs-12">
+                            <table id="dataCollection"></table>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+            <div class="row">
+                <div class="col-md-11">
+                    <input type="button" class="btn btn-primary pull-right" name="btnSave" id="btnSave" value="Save" style="display:none" />
+                </div>
+            </div>
+    </div>
+
+</div>
+
+
+<link href="~/Scripts/toastr.min.css" rel="stylesheet" />
+<script src="~/Scripts/App.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/toastr.min.js"></script>
+
+
+<script>
+
+    $(document).ready(function () {
+
+        GetProductList();
+        GetCustomerList();
+        GetProductListData();
+        GetCustomerListData();
+
+
+        function GetProductList() {
+            $.ajax({
+                type: 'GET',
+                url: baseUrl + 'Values/GetProductList/',
+                success: function (res) {
+                    $.each(res.result, function (i, item) {
+                        $('#ProductName').append($('<option>', {
+                            value: item.Id,
+                            text: item.ProductName
+                        }));
+                    });
+                }
+            });
+        };
+
+        function GetCustomerList() {
+            $.ajax({
+                type: 'GET',
+                url: baseUrl + 'Values/GetCustomerList/',
+                success: function (response) {
+                    console.log(response);
+                    $.each(response.result, function (i, item) {
+                        $('#CustomerName').append($('<option>', {
+                            value: item.Id,
+                            text: item.CustomerName
+                        }));
+                    });
+                }
+            });
+        };
+
+        $('#ProductName').on('click',function () {
+            $.ajax({
+                type: "GET",
+                url: baseUrl + 'Values/GetEditDataById/' + $('#ProductName').val(),
+                contentType: "application/json; charset=utf-8",
+                success: function (res) {
+                    $('#Quantity').val(res.result[0].Quantity);
+                    $('#BuyingPrice').val(res.result[0].BuyingPrice);
+                    $('#SellingPrice').val(res.result[0].SellingPrice);
+                },
+                error: function (res) {
+                    console.log(res);
+                }
+            });
+        });       
+
+        function GetProductListData() {
+            $.ajax({
+                type: 'GET',
+                url: baseUrl + 'Values/GetProductList/',
+                success: function (res) {
+                    console.log(res);
+                    $.each(res.result, function (i, item) {
+                        $('.productNameDropdown').append($('<option>', {
+                            value: item.Id,
+                            text: item.ProductName
+                        }));
+                    });
+                }
+            });
+        };
+
+        function GetCustomerListData() {
+            $.ajax({
+                type: 'GET',
+                url: baseUrl + 'Values/GetCustomerList/',
+                success: function (response) {
+                    console.log(response);
+                    $.each(response.result, function (i, item) {
+                        $('.customerNameDropdown').append($('<option>', {
+                            value: item.Id,
+                            text: item.CustomerName
+                        }));
+                    });
+                }
+            });
+        };
+
+    });
+
+    var arrayList = {};
+    var productList = [];
+    var productId = [];
+    var customerId = [];
+    $('#btnAdd').click(function () {
+        var submitValue = false;
+        var productName = $("#ProductName").val();
+        var customerName = $("#CustomerName").val();
+        var buyingPrice = $("#BuyingPrice").val();
+        var sellingPrice = $("#SellingPrice").val();
+        var quantity = $("#Quantity").val();       
+
+         arrayList = {
+             ProductId: productName,
+             CustomerId: customerName,
+             BuyingPrice: buyingPrice,
+             SellingPrice: sellingPrice,
+             Quantity: quantity,
+        }        
+
+        if (productName != "") {
+            if (result.length == 0) {
+                productId.push(productName);
+            }
+        }
+        if (customerName != "") {
+            if (res.length == 0) {
+                customerId.push(customerName);
+            }
+        }
+
+        //let findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) != index)
+        //var result = [...new Set(findDuplicates(productId))];
+        //var res = [...new Set(findDuplicates(productId))];
+
+        //if (productId.length > 1) {
+        //    let findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) != index)
+        //    result = [...new Set(findDuplicates(productId))];
+        //    if (result.length > 0) {
+        //        productId.pop();
+        //        return false;
+        //    }
+        //}
+
+        //if (customerId.length > 1) {
+        //    let findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) != index)
+        //    res = [...new Set(findDuplicates(customerId))];
+        //    if (res.length > 0) {
+        //        customerId.pop();
+        //        return false;
+        //    }
+        //}
+
+        if (productName != "" && customerName != "") {
+            productList.push(arrayList);
+            submitValue = true;
+        }
+
+        if (submitValue == true) {
+            var $newRow = $('#mainrow').clone().removeAttr('id');
+            $('.productItem', $newRow).val($('#ProductName').val());
+            $('.customerItem', $newRow).val($('#CustomerName').val());
+            $('.buyingItem', $newRow).val($('#BuyingPrice').val());
+            $('.sellingItem', $newRow).val($('#SellingPrice').val());
+            $('.quantityItem', $newRow).val($('#Quantity').val());
+            //$('#btnRemove', $newRow).addClass('remove').val('Remove').removeClass('btn-success').addClass('btn-danger');
+            $('#ProductName,#CustomerName,#BuyingPrice,#SellingPrice,#Quantity,#btnAdd', $newRow).removeAttr('id');
+            $('#dataCollection').append($newRow);
+            $('#ProductName,#CustomerName,#BuyingPrice,#SellingPrice,#Quantity').val('');
+
+            $('#masterDataTable').show();
+            $('#btnSave').show();
+        }
+    });
+
+    $("#btnSave").on('click', function (e) {
+        var isAllValid = false;
+        console.log(productList);
+
+        var data =
+        {
+            sellList: productList,
+        }      
+
+        $('#dataCollection tbody tr').each(function (index, ele) {
+            var itemObj =
+            {
+                ProductId: $('.productItem', this).val(),
+                CustomerId: $('.customerItem', this).val(),
+                BuyingPrice: $('.buyingItem', this).val(),
+                SellingPrice: $('.sellingItem', this).val(),
+                Quantity: $('.quantityItem', this).val()
+            }
+            list.push(itemObj);
+        });
+
+        if (productList.length == 0) {
+            isAllValid = false;
+            toastr["warning"]('Please add Your data First!');
+            return false;
+        }
+        else {
+            isAllValid = true;
+        }
+
+        if (isAllValid == true) {
+            $.ajax({
+                type: "POST",
+                url: baseUrl + 'Values/SaveSellingData/',
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+            }).done(function (res) {
+                 arrayList = {};
+                 productList = [];
+                 productId = [];
+                 customerId = [];
+                $('#masterDataTable').hide();
+                $('#btnSave').hide();
+                toastr["success"]('Successfull.');
+            }).fail(function (res) {
+                console.log(res);
+            });
+        };
+    });
+
+</script>
