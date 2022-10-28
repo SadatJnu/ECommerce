@@ -21,7 +21,8 @@ CREATE PROCEDURE [dbo].[SellSummeryList]
 AS
 BEGIN	
 
-	 SELECT C.CustomerName,P.ProductName,P.BuyingPrice,S.SellingPrice,S.Quantity,(S.SellingPrice - P.BuyingPrice) TotalAmount,CAST(S.AddDate AS DATE) AddDate
+	 SELECT C.CustomerName,P.ProductName,P.BuyingPrice,S.SellingPrice,S.Quantity,(S.SellingPrice - P.BuyingPrice) TotalAmount
+	 ,CAST(S.AddDate AS DATE) AddDate
 	 ,(SELECT ((PS.SellingPrice - PS.BuyingPrice)*s.Quantity) FROM Products PS WHERE PS.Id=S.ProductId ) TotalProfit
 	 FROM Products P
 	 INNER JOIN Sells S ON P.Id=S.ProductId
