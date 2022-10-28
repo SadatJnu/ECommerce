@@ -24,7 +24,9 @@ GO
 
 CREATE PROCEDURE [dbo].[SellSummeryList]     
 AS
+
 BEGIN	
+
 	 SELECT C.CustomerName,P.ProductName,P.BuyingPrice,S.SellingPrice,S.Quantity,(S.SellingPrice - P.BuyingPrice) TotalAmount
 	 ,CAST(S.AddDate AS DATE) AddDate
 	 ,(SELECT ((PS.SellingPrice - PS.BuyingPrice)*s.Quantity) FROM Products PS WHERE PS.Id=S.ProductId ) TotalProfit
@@ -32,6 +34,7 @@ BEGIN
 	 INNER JOIN Sells S ON P.Id=S.ProductId
 	 INNER JOIN Customers C ON C.Id = S.CustomerId 	
 END
+
 
 ----------------------------------------------------------------------------------------------------------------------
 
@@ -52,7 +55,9 @@ CREATE PROCEDURE [dbo].[InvoiceSummary]
 	@Id INT
 )
 AS
+
 BEGIN	
+
 
 	 SELECT  CONCAT('000' , ROW_NUMBER() OVER(ORDER BY (SELECT 1))) AS InvoiceNo,
 	 C.CustomerName,P.ProductName,P.SellingPrice,S.SellingPrice AS TotalSellAmount,S.Quantity,CAST(S.AddDate AS DATE) AddDate
@@ -62,6 +67,7 @@ BEGIN
 	 INNER JOIN Customers C ON C.Id = S.CustomerId 	
 	 WHERE C.Id=@Id
 END
+
 
 
 Step - 5 : Run the application here you can see three Navbar name as (1. Product 2. Sell 3.Report)
