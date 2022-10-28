@@ -50,7 +50,8 @@ AS
 BEGIN	
 
 	 SELECT  CONCAT('000' , ROW_NUMBER() OVER(ORDER BY (SELECT 1))) AS InvoiceNo,
-	 C.CustomerName,P.ProductName,P.SellingPrice,S.SellingPrice AS TotalSellAmount,S.Quantity,CAST(S.AddDate AS DATE) AddDate
+	 C.CustomerName,P.ProductName,P.SellingPrice,S.SellingPrice AS TotalSellAmount,S.Quantity
+	 ,CAST(S.AddDate AS DATE) AddDate
 	 ,(SELECT ((PS.SellingPrice - PS.BuyingPrice)*s.Quantity) FROM Products PS WHERE PS.Id=S.ProductId ) TotalProfit
 	 FROM Products P
 	 INNER JOIN Sells S ON P.Id=S.ProductId
@@ -60,3 +61,6 @@ END
 
 
 Step - 5 : Run the application here you can see three Navbar name as (1. Product 2. Sell 3.Report)
+
+
+
