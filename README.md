@@ -22,9 +22,9 @@ GO
 
 --	SellSummeryList
 
-CREATE PROCEDURE [dbo].[SellSummeryList]     
-AS
+CREATE PROCEDURE [dbo].[SellSummeryList]  
 
+AS
 BEGIN	
 
 	 SELECT C.CustomerName,P.ProductName,P.BuyingPrice,S.SellingPrice,S.Quantity,(S.SellingPrice - P.BuyingPrice) TotalAmount
@@ -54,8 +54,8 @@ CREATE PROCEDURE [dbo].[InvoiceSummary]
 (
 	@Id INT
 )
-AS
 
+AS
 BEGIN	
 
 
