@@ -72,6 +72,10 @@
     <Compile Include="Migrations\202210190921049_AddNewColumn.designer.cs">
       <DependentUpon>202210190921049_AddNewColumn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202210310507597_AddNewTable.cs" />
+    <Compile Include="Migrations\202210310507597_AddNewTable.designer.cs">
+      <DependentUpon>202210310507597_AddNewTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -107,6 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202210190921049_AddNewColumn.resx">
       <DependentUpon>202210190921049_AddNewColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202210310507597_AddNewTable.resx">
+      <DependentUpon>202210310507597_AddNewTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

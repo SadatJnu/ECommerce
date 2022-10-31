@@ -23,5 +23,6 @@ namespace ECommerce.BusinessLogics.DbContexts
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Sell> Sells { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
     }
 }

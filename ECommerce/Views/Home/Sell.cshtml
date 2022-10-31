@@ -228,7 +228,6 @@
                 type: 'GET',
                 url: baseUrl + 'Values/GetCustomerList/',
                 success: function (response) {
-                    console.log(response);
                     $.each(response.result, function (i, item) {
                         $('#CustomerName').append($('<option>', {
                             value: item.Id,
@@ -260,7 +259,6 @@
                 type: 'GET',
                 url: baseUrl + 'Values/GetProductList/',
                 success: function (res) {
-                    console.log(res);
                     $.each(res.result, function (i, item) {
                         $('.productNameDropdown').append($('<option>', {
                             value: item.Id,
@@ -276,7 +274,6 @@
                 type: 'GET',
                 url: baseUrl + 'Values/GetCustomerList/',
                 success: function (response) {
-                    console.log(response);
                     $.each(response.result, function (i, item) {
                         $('.customerNameDropdown').append($('<option>', {
                             value: item.Id,
@@ -319,7 +316,7 @@
                 },
                 error: function (res) {
                     console.log(res);
-                    toastr["error"]('Error');
+                    toastr["error"](res.Message);
                 }
             });
         };
@@ -460,7 +457,8 @@
                 url: baseUrl + 'Values/SaveSellingData/',
                 data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",
-            }).done(function (res) {                
+            }).done(function (res) {
+                toastr["success"](res.Message);
                 productList = [];
                 productId = [];                
                 $('#dataCollection').remove();
@@ -468,15 +466,17 @@
                 $('#TotalSum').hide();
                 $('#btnSave').hide();
                 console.log(customerId[0]);
-                var url = baseUrl + 'Home/InvoiceSummary/' + customerId[0];
+                var dt = new Date();
+                var getDate = dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate();
+                var url = baseUrl + 'Home/InvoiceSummary?Id=' + customerId[0] + '&getDate=' + getDate;
                 console.log(url);
                 window.open(url, "_blank");
                 window.location.href = url;
                 customerId = [];
-                toastr["success"]('Successfull.');
                 window.location.reload();
             }).fail(function (res) {
                 console.log(res);
+                toastr["error"](res.Message);
             });
         };
     });

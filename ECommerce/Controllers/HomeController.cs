@@ -44,16 +44,27 @@ namespace ECommerce.Controllers
             return File(GetPdf(rptViewer), "application/pdf");
         }
 
-        public FileResult InvoiceSummary(int Id)
+        public FileResult InvoiceSummary(int Id, string getDate)
         {
-            DataTable dtResult = DataAccess.Instance.productService.GetBySpWithParam("InvoiceSummary", new object[] { Id });
+            string InvoiceNo = string.Empty;
+            DataTable dt = DataAccess.Instance.productService.GetBySpWithParam("InvoiceSummary", new object[] { Id, getDate });
+
+            if (dt.Rows.Count > 0)
+            {
+                DataTable dtResult = DataAccess.Instance.productService.GetBySp("getInvoiceNo");
+                InvoiceNo = dtResult.Rows[0][0].ToString();
+            }
+
             ReportViewer rptViewer = new ReportViewer();
+            List<ReportParameter> parameters = new List<ReportParameter>();
 
             rptViewer.ProcessingMode = ProcessingMode.Local;
             rptViewer.Width = Unit.Percentage(100);
             rptViewer.LocalReport.ReportPath = Server.MapPath("~/Report/rptInvoiceSummary.rdlc");
             rptViewer.LocalReport.EnableExternalImages = true;
-            rptViewer.LocalReport.DataSources.Add(new ReportDataSource("SPResults", dtResult));
+            rptViewer.LocalReport.DataSources.Add(new ReportDataSource("SPResults", dt));
+            parameters.Add(new ReportParameter("InvoiceNo", InvoiceNo));
+            rptViewer.LocalReport.SetParameters(parameters);
             rptViewer.LocalReport.Refresh();
 
             return File(GetPdf(rptViewer), "application/pdf");

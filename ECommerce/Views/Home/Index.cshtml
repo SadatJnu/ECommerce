@@ -122,12 +122,12 @@
                     success: function (res) {
                         console.log(res);
                         toastr["success"](res.Message);
-                        GetProductList();
-                    }
-                    ,
-                    error: function (response) {
-                        console.log(response);
-                        toastr["error"]('Error');
+                        /*GetProductList();*/
+                        window.location.reload();
+                    },
+                    error: function (res) {
+                        console.log(res);
+                        toastr["error"](res.Message);
                     }
                 });
             }
@@ -175,7 +175,7 @@
             },
             error: function (res) {
                 console.log(res);
-                toastr["error"]('Error');
+                toastr["error"](res.Message);
             }
         });
     };
@@ -195,7 +195,7 @@
             },
             error: function (res) {
                 console.log(res);
-                toastr["error"]('Error');
+                toastr["error"](res.Message);
             }
         });
     });
@@ -207,13 +207,13 @@
             url: baseUrl + 'Values/DeletItem/' + id,
             contentType: "application/json; charset=utf-8",
             success: function (res) {
-                toastr["success"]('Successfull.');
+                toastr["success"](res.Message);
                 GetProductList();
                 console.log(res);
             },
             error: function (res) {
                 console.log(res);
-                toastr["error"]('Error');
+                toastr["error"](res.Message);
             }
         });
     });
