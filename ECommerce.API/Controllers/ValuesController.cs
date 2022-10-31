@@ -1,5 +1,7 @@
 ﻿using ECommerce.BusinessLogics.AppData;
+using ECommerce.BusinessLogics.Helpers;
 using ECommerce.BusinessLogics.Models;
+using ECommerce.BusinessLogics.Repository;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -138,9 +140,12 @@ namespace ECommerce.API.Controllers
             try
             {
                 Sell lst = new Sell();
+                bool res = false;
+                int custId = 0;
 
                 foreach (var item in sell.sellList)
                 {
+                    custId = item.CustomerId;
                     lst.ProductId = item.ProductId;
                     lst.CustomerId = item.CustomerId;
                     lst.Quantity = item.Quantity;
@@ -148,7 +153,19 @@ namespace ECommerce.API.Controllers
                     lst.SellingPrice = item.SellingPrice;
                     lst.IsDeleted = false;
                     lst.AddDate = DateTime.Now;
-                    var result = DataAccess.Instance.sellService.Add(lst);
+                    res = DataAccess.Instance.sellService.Add(lst);
+                }
+
+                if(res)
+                {
+                    try
+                    {                      
+                        SqlHelper.ExecuteNonQuery(Constants.ConnectionString, CommandType.Text, "EXEC InsertInvoiceNo @CustomerId = " + custId + ", @TokenKey = " + sell.TokenKey + " ");
+                    }
+                    catch (Exception ex)
+                    {
+                        return Json(new { Status = "error", Message = ex.Message.ToString() });
+                    }
                 }
 
                 return Json(new { Status = "success", Message = "Save Successful." });

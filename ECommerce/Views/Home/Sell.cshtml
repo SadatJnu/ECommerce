@@ -324,6 +324,7 @@
     });
 
     var list = [];
+    var tokenKey = null;
     var totalSell = 0;
     var totalAmount = 0;
     var arrayList = {};    
@@ -434,10 +435,15 @@
 
     $("#btnSave").on('click', function (e) {
         var isAllValid = false;
-        var data = {};    
+        var data = {};
+        var dt = new Date();
+        var key = dt.getFullYear() + ("0" + (dt.getMonth() + 1)).slice(-2) + ("0" + dt.getDate()).slice(-2) + ("0" + dt.getHours()).slice(-2)
+            + ("0" + dt.getMinutes()).slice(-2) + ("0" + dt.getSeconds()).slice(-2) + ("0" + dt.getMilliseconds()).slice(-2);
+        tokenKey = key;
         if (productList.length != 0) {
             data =
             {
+                TokenKey: key,
                 sellList: productList,
             }
         }        
@@ -466,13 +472,13 @@
                 $('#TotalSum').hide();
                 $('#btnSave').hide();
                 console.log(customerId[0]);
-                var dt = new Date();
                 var getDate = dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate();
-                var url = baseUrl + 'Home/InvoiceSummary?Id=' + customerId[0] + '&getDate=' + getDate;
+                var url = baseUrl + 'Home/InvoiceSummary?Id=' + customerId[0] + '&getDate=' + getDate + '&TokenKey=' + tokenKey;
                 console.log(url);
                 window.open(url, "_blank");
                 window.location.href = url;
                 customerId = [];
+                tokenKey = null;
                 window.location.reload();
             }).fail(function (res) {
                 console.log(res);

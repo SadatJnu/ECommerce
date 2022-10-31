@@ -748,7 +748,7 @@
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>=Parameters!InvoiceNo.Value</Value>
+                    <Value>=Fields!InvoiceNo.Value</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>

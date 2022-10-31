@@ -20,6 +20,8 @@ namespace ECommerce.BusinessLogics.Models
     {
         public virtual ICollection<Sell> sellList { get; set; }
 
+        public string TokenKey { get; set; }
+
     }
 
 }

@@ -18,6 +18,9 @@ namespace ECommerce.BusinessLogics.Models
 
     public class Invoice : BaseEntity
     {
+        public int CustomerId { get; set; }
         public string InvoiceNo { get; set; }
+        public string TokenKey { get; set; }
+
     }
 }

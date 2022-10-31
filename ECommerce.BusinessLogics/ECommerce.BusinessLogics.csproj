@@ -55,6 +55,7 @@
     <Compile Include="AppData\ClassName.cs" />
     <Compile Include="AppData\DataAccess.cs" />
     <Compile Include="DbContexts\ModelDbContext.cs" />
+    <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\SqlHelper.cs" />
     <Compile Include="Migrations\202210170429271_Initial.cs" />
     <Compile Include="Migrations\202210170429271_Initial.designer.cs">
@@ -75,6 +76,14 @@
     <Compile Include="Migrations\202210310507597_AddNewTable.cs" />
     <Compile Include="Migrations\202210310507597_AddNewTable.designer.cs">
       <DependentUpon>202210310507597_AddNewTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202210310636046_AddNewColumn1.cs" />
+    <Compile Include="Migrations\202210310636046_AddNewColumn1.designer.cs">
+      <DependentUpon>202210310636046_AddNewColumn1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202210310657534_AddNewColumn2.cs" />
+    <Compile Include="Migrations\202210310657534_AddNewColumn2.designer.cs">
+      <DependentUpon>202210310657534_AddNewColumn2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -114,6 +123,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202210310507597_AddNewTable.resx">
       <DependentUpon>202210310507597_AddNewTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202210310636046_AddNewColumn1.resx">
+      <DependentUpon>202210310636046_AddNewColumn1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202210310657534_AddNewColumn2.resx">
+      <DependentUpon>202210310657534_AddNewColumn2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

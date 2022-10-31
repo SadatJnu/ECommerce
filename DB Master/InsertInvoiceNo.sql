@@ -1,7 +1,7 @@
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[getInvoiceNo]'))
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[InsertInvoiceNo]'))
 BEGIN
-DROP PROCEDURE  getInvoiceNo
+DROP PROCEDURE  InsertInvoiceNo
 END
 GO
 SET ANSI_NULLS ON
@@ -9,10 +9,14 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
---			getInvoiceNo 
+--			InsertInvoiceNo 1
 
 
-CREATE PROCEDURE [dbo].[getInvoiceNo]  
+CREATE PROCEDURE [dbo].[InsertInvoiceNo]  
+(
+	@CustomerId INT = 0,
+	@TokenKey NVARCHAR(MAX) = ''
+)
 AS
 BEGIN	
 
@@ -37,7 +41,7 @@ BEGIN
 
 	IF(@newId != '' OR @newId IS NULL)
 	BEGIN
-		INSERT INTO Invoices (InvoiceNo,IsDeleted,AddDate) VALUES (@newId,0,GETDATE())
+		INSERT INTO Invoices (CustomerId,InvoiceNo,TokenKey,IsDeleted,AddDate) VALUES (@CustomerId,@newId,@TokenKey,0,GETDATE())
 	END
 	ELSE
 	BEGIN

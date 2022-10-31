@@ -44,16 +44,10 @@ namespace ECommerce.Controllers
             return File(GetPdf(rptViewer), "application/pdf");
         }
 
-        public FileResult InvoiceSummary(int Id, string getDate)
+        public FileResult InvoiceSummary(int Id, string getDate, string TokenKey)
         {
             string InvoiceNo = string.Empty;
-            DataTable dt = DataAccess.Instance.productService.GetBySpWithParam("InvoiceSummary", new object[] { Id, getDate });
-
-            if (dt.Rows.Count > 0)
-            {
-                DataTable dtResult = DataAccess.Instance.productService.GetBySp("getInvoiceNo");
-                InvoiceNo = dtResult.Rows[0][0].ToString();
-            }
+            DataTable dt = DataAccess.Instance.productService.GetBySpWithParam("InvoiceSummary", new object[] { Id, getDate, TokenKey });
 
             ReportViewer rptViewer = new ReportViewer();
             List<ReportParameter> parameters = new List<ReportParameter>();
