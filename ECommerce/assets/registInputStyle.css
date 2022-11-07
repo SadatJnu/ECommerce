@@ -1,0 +1,111 @@
+﻿  
+select {
+        height: 31px;
+        width: 487px;
+    }
+  
+   .btn-primary:hover {
+    color: #ffffff !important;
+    background-color: #0094ff !important;
+    border-color: #285e8e !important;
+    }
+   
+
+@media (max-width: 1280px) {
+    select {        
+        max-width: 454px !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    select {        
+        max-width: 385px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    select {        
+        max-width: 485px !important;
+    }
+    input {        
+        max-width: 485px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    select {        
+        max-width: 390px !important;
+    }
+}
+
+@media (max-width: 425px) {
+    select,input {        
+        max-width: 295px !important;
+    }
+}
+
+@media (max-width: 415px) {
+    select,input {        
+        max-width: 327px !important;
+    }
+}
+
+@media (max-width: 375px) {
+    select,input {        
+        max-width: 245px !important;
+    }
+}
+
+@media (max-width: 360px) {
+    select,input {        
+        max-width: 245px !important;
+    }
+}
+
+@media (max-width: 320px) {
+    select,input {        
+        max-width: 190px !important;
+    }
+}
+
+@media only screen and (min-width: 321px) and (max-width: 374px) {
+    select,input {        
+        max-width: 180px !important;
+    }
+}
+
+@media only screen and (min-width: 376px) and (max-width: 415px) {
+    select,input {        
+        max-width: 200px !important;
+    }
+}
+
+@media only screen and (min-width: 426px) and (max-width: 612px) {
+    select,input {        
+        max-width: 250px !important;
+    }
+}
+
+@media only screen and (min-width: 250px) and (max-width: 319px) {
+    select,input {        
+        max-width: 170px !important;
+    }
+    input#btnReset {
+            margin: 0px !important;
+            width: 90px !important;
+    }
+    input#btnSubmit {
+            margin: 0px !important;
+             width: 65px !important;
+    }
+    input#btnlogin {
+            margin: 0px !important;
+            width: 90px !important;
+    }
+}
+
+@media (max-width: 300px) {
+    select,input {        
+        max-width: 160px !important;
+    }
+}

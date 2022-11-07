@@ -1,12 +1,14 @@
 ﻿using ECommerce.BusinessLogics.DbContexts;
 using ECommerce.BusinessLogics.Helpers;
 using ECommerce.BusinessLogics.Models;
+using ECommerce.BusinessLogics.ModelView;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
@@ -217,7 +219,7 @@ namespace ECommerce.BusinessLogics.Repository
                 }
 
             }
-        }
+        }       
 
     }
 }

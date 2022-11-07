@@ -1,0 +1,206 @@
+﻿
+
+@media screen and (min-device-width: 290px) and (max-device-width: 374px) {
+    input,
+    select,
+    textarea {
+        max-width: 200px !important;
+    }  
+      select#EmpID {
+         width: 195px !important;
+    }
+    input#FromDate {
+        width: 195px !important;
+    }
+    input#ToDate {
+         width: 195px !important;
+    }
+
+    #btnHide {
+        margin-left: 0em !important;
+        margin-top: 10px !important;
+        max-width: 90px !important;
+    }
+     #btnPreview {
+        margin-left: 0em !important;
+        max-width: 90px !important;
+    }
+}
+
+@media screen and (min-device-width: 375px) and (max-device-width: 418px) {
+    input,
+    select,
+    textarea {
+        width: 240px !important;
+    }
+
+    #btnHide {
+        margin-left: 0px !important;
+        margin-top: 10px !important;
+        width: 100px !important;
+    }
+    #btnPreview {
+        margin-left: 0px !important;
+        width: 90px !important;
+    }
+}
+
+@media screen and (min-device-width: 419px) and (max-device-width: 438px) {
+    input,
+    select,
+    textarea {
+        max-width: 285px !important;
+    }
+
+    #btnHide {
+        margin-left: 0em !important;
+        margin-top: 10px !important;
+        width: 90px !important;
+    }
+    #btnPreview {
+        margin-left: 1em !important;
+        width: 90px !important;
+    }
+    .container {
+        padding-right: 35px !important;
+    }
+}
+
+@media screen and (min-device-width: 439px) and (max-device-width: 719px) {
+    input,
+    select,
+    textarea {
+        max-width: 285px !important;
+    }
+
+    #btnHide {
+        margin-left: 0em !important;
+        width: 90px !important;
+    }
+    #btnPreview {
+        margin-left: 1em !important;
+        width: 90px !important;
+    }
+    .container {
+        padding-right: 35px !important;
+    }
+}
+
+@media screen and (min-device-width: 720px) and (max-device-width: 900px) {
+    
+    .navbar-collapse.collapse {
+        max-width: 750px !important;
+    }
+    #footerText {
+        margin-top: 265px !important;
+    }
+    /*.panel.panel-default.mb0 {
+        margin-top: 65px !important;
+    }*/
+}
+
+@media screen and (min-device-width: 768px) and (max-device-width: 900px) {
+    
+    .panel.panel-default.mb0 {
+        margin-top: 65px !important;
+    }
+}
+
+@media screen and (min-device-width: 901px) and (max-device-width: 975px) {
+    
+    .navbar-collapse.collapse {
+        max-width: 830px !important;
+    }
+    #footerText {
+        margin-top: 265px !important;
+    }
+    .panel.panel-default.mb0 {
+        margin-top: 65px !important;
+    }
+}
+
+@media screen and (min-device-width: 976px) and (max-device-width: 991px) {
+    
+    .navbar-collapse.collapse {
+        width: 863px !important;
+    }
+    .panel.panel-default.mb0 {
+        margin-top: 60px !important;
+    }
+}
+
+@media screen and (min-device-width: 992px) and (max-device-width: 1199px) {
+    
+    .navbar-collapse.collapse {
+        width: 980px !important;
+    }
+}
+
+@media screen and (min-device-width: 1200px) and (max-device-width: 1300px) {
+    
+   .navbar-collapse.collapse {
+        width: 1175px !important;
+    }
+    #footerText {
+        margin-top: 265px !important;
+    }
+}
+
+@media (max-width: 1925px) {
+    
+
+    #btnHide {
+        margin-left: 0px !important;
+        width: 100px !important;
+    }
+    #btnPreview {
+        margin-left: 1em !important;
+        width: 100px !important;
+    }
+    #btnreportGenerate {
+        margin-left: 1em !important;
+        width: 170px !important;
+    }
+}
+
+@media (max-width: 2560px) {
+    
+
+    #btnHide {
+        margin-left: 1em !important;
+        width: 100px !important;
+    }
+    #btnPreview {
+        margin-left: 1em !important;
+        width: 100px !important;
+    }
+    #btnreportGenerate {
+        margin-left: 1em !important;
+        width: 170px !important;
+    }
+    .progress-container {
+            width: 100% !important;
+    }     
+     .col-xs-6,.col-md-6, .col-sm-6, .col-lg-12  {
+        padding : 0px !important;
+        margin: 0px !important;
+        width: 50% !important;
+    }
+     .progress-container {
+             width: 100% !important;
+    }
+    div#bar1 {
+        width: 50% !important;
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+    div#bar2 {
+        width: 50%  !important;
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+    
+
+}
+
+

@@ -56,6 +56,8 @@
     <Compile Include="AppData\DataAccess.cs" />
     <Compile Include="DbContexts\ModelDbContext.cs" />
     <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Helpers\Data.cs" />
+    <Compile Include="Helpers\ObjectMapHelper.cs" />
     <Compile Include="Helpers\SqlHelper.cs" />
     <Compile Include="Migrations\202210170429271_Initial.cs" />
     <Compile Include="Migrations\202210170429271_Initial.designer.cs">
@@ -85,11 +87,17 @@
     <Compile Include="Migrations\202210310657534_AddNewColumn2.designer.cs">
       <DependentUpon>202210310657534_AddNewColumn2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202211071100485_AddNewTableNavbar.cs" />
+    <Compile Include="Migrations\202211071100485_AddNewTableNavbar.designer.cs">
+      <DependentUpon>202211071100485_AddNewTableNavbar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\NavBar.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Sell.cs" />
+    <Compile Include="ModelView\NavBarViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
@@ -129,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202210310657534_AddNewColumn2.resx">
       <DependentUpon>202210310657534_AddNewColumn2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211071100485_AddNewTableNavbar.resx">
+      <DependentUpon>202211071100485_AddNewTableNavbar.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

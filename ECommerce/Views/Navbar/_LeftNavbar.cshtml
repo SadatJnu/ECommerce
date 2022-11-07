@@ -1,0 +1,26 @@
+﻿@model IEnumerable<ECommerce.BusinessLogics.ModelView.NavBarViewModel>
+
+@foreach (var item in Model.Where(e => e.IsParent == true && e.PullLeft == true))
+{
+    <li>
+        <a href="@Url.Action(item.Action,item.Controller)">
+            <i class="@item.Area"></i>
+            <span id="Notice_@item.DisplayOrder">@item.DisplayName</span>
+            @{
+                if (Model.Where(e => e.IsParent == false).Count() > 0)
+                {
+                    <i class="fa fa-angle-left pull-right"></i>
+                }
+            }
+        </a>
+
+        @foreach (var child in Model.Where(e => e.IsParent == false))
+        {
+            <ul class="treeview-menu" style="background: #37aff5;color:#ffffff;">
+
+                <li><a style="color:#ffffff;" href="@Url.Action(child.Action, child.Controller)"><i class="@child.Area"></i> @child.DisplayName</a></li>
+
+            </ul>
+        }
+    </li>
+}

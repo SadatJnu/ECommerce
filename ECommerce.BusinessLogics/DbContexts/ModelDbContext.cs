@@ -24,5 +24,6 @@ namespace ECommerce.BusinessLogics.DbContexts
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Sell> Sells { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<NavBar> NavBar { get; set; }
     }
 }

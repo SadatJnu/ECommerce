@@ -1,0 +1,130 @@
+﻿  
+
+  .clock {
+        width: 100%;
+        margin: 0 auto;
+        padding: 30px;
+        color: #FFF;
+    }
+
+        .clock ul {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0;
+            list-style: none;
+            text-align: center;
+        }
+
+            .clock ul li {
+                display: inline;
+                font-size: 3em;
+                text-align: center;
+                font-family: "Arial", Helvetica, sans-serif;
+                /*text-shadow: 0 2px 5px #55c6ff, 0 3px 6px #55c6ff, 0 4px 7px #55c6ff;*/
+            }
+
+    #Date {
+        font-family: 'Arial', Helvetica, sans-serif;
+        font-size: 160.5%;
+        text-align: center;
+        /*text-shadow: 0 2px 5px #55c6ff, 0 3px 6px #55c6ff;*/
+        padding-bottom: 0px !important;
+    }
+    
+     @media screen and (min-device-width: 280px) and (max-device-width: 1023px) {
+        #Date {
+            font-size:95% !important;
+      }	
+        #message {
+            font-size:11px !important;
+      }	
+  }
+      
+     @media screen and (min-device-width: 1024px) and (max-device-width: 1440px) {
+        #Date {
+            font-size:100% !important;
+            width: 100%;
+      }	
+        .col-md-4 {
+            width: 49%;
+    }
+  }
+     @media screen and (min-device-width: 1441px) and (max-device-width: 2560px) {
+        #Date {
+        font-family: 'Arial', Helvetica, sans-serif;
+        font-size: 160% !important;
+        text-align: center;
+        padding-bottom: 0px !important;
+    }
+      
+  }
+    @media screen and (min-device-width: 992px) and (max-device-width: 1023px) {
+        .col-md-4 {
+            width: 49% !important;
+        }
+     }
+     
+     @media screen and (min-device-width: 1024px) and (max-device-width: 1400px) {
+        .col-md-4 {
+            width: 49% !important;
+    }
+  }
+     @media screen and (min-device-width: 1401px) and (max-device-width: 2560px) {
+        .col-md-4 {
+            width: 33% !important;
+        }
+     }
+
+    #point {
+        position: relative;
+        -moz-animation: mymove 1s ease infinite;
+        -webkit-animation: mymove 1s ease infinite;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Animasi Detik Kedap - Kedip */
+    @-webkit-keyframes mymove {
+        0% {
+            opacity: 1.0;
+            text-shadow: 0 0 20px #00c6ff;
+        }
+
+        50% {
+            opacity: 0;
+            text-shadow: none;
+        }
+
+        100% {
+            opacity: 1.0;
+            text-shadow: 0 0 20px #00c6ff;
+        }
+    }
+
+    @-moz-keyframes mymove {
+        0% {
+            opacity: 1.0;
+            text-shadow: 0 0 20px #00c6ff;
+        }
+
+        50% {
+            opacity: 0;
+            text-shadow: none;
+        }
+
+        100% {
+            opacity: 1.0;
+            text-shadow: 0 0 20px #00c6ff;
+        }
+    }
+
+    .txt{
+        text-align:center;
+    }
+
+    .txt:hover {
+        color:#1a7b72
+    }
+
+
+
