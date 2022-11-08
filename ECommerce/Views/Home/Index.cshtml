@@ -134,14 +134,21 @@
             width: 100% !important;
         }
     }
+    .modal-dialog {
+        width: 60% !important;
+        margin-left: 35% !important;
+    }
+    .modal-content {
+        width: 60% !important;
+    }
 </style>
-<link href="~/assets/bootsrap.custom.css" rel="stylesheet" />
+
 <section class="content-header">
     <ol class="breadcrumb">
         <li><a href="~/Home/Index"><i class="fa fa-home"></i> Home</a></li>
     </ol>
     <ol class="breadcrumb">
-        <button class="btn btn-green" data-target="#addmodal" @*id="myModal"*@ data-toggle="modal"> <i class="fa fa-plus"></i> Add Product</button>
+        <button class="btn btn-green" data-target="#addmodal" data-toggle="modal"> <i class="fa fa-plus"></i> Add Product</button>
     </ol>
 </section>
 
@@ -163,7 +170,7 @@
 <div id="addmodal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form name="addform" class="form-horizontal" id="form_sample_1" novalidate>
+            <form name="addform" class="form-horizontal" id="addform" novalidate>
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
                     <h4 class="modal-title">Add Product</h4>
@@ -205,8 +212,18 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" class="btn btn-primary pull-right" name="btnSave" id="btnSave" value="Save" />
-                    <input type="submit" class="btn btn-warning pull-left" id="btnCancel" value="Cancel" />
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2 pull-right">
+                                    <input type="submit" class="btn btn-warning pull-left" id="btnCancel" value="Cancel" />
+                                </div>
+                                <div class="col-md-2 pull-right">
+                                    <input type="submit" class="btn btn-primary pull-right" name="btnSave" id="btnSave" value="Save" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>                   
                 </div>
             </form>
         </div>
@@ -249,10 +266,6 @@
     $(document).ready(function () {
 
         GetProductList();
-
-        $('#myModal').click(function () {
-            $('#addmodal').modal('show');
-        });
 
         $('#btnSave').click(function () {
 
@@ -298,6 +311,7 @@
         $("#ProductName").val('');
         $("#BuyingPrice").val('');
         $("#SellingPrice").val('');
+        $('#addmodal').modal('hide');
     });
 
     function GetProductList() {
@@ -349,6 +363,7 @@
                 $('#ProductName').val(res.result[0].ProductName);
                 $('#BuyingPrice').val(res.result[0].BuyingPrice);
                 $('#SellingPrice').val(res.result[0].SellingPrice);
+                $('#addmodal').modal('show');
             },
             error: function (res) {
                 console.log(res);

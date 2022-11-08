@@ -204,6 +204,7 @@
     <Content Include="assets\css\theme\_all-skins.css" />
     <Content Include="assets\CustomJS\ajax_googleapis_com_libs_jquery_1.7.2_jquery.min.js" />
     <Content Include="assets\CustomJS\bootstrap-datepicker.js" />
+    <Content Include="assets\CustomJS\bootstrap.min.js" />
     <Content Include="assets\CustomJS\clock.js" />
     <Content Include="assets\CustomJS\CustomJS.js" />
     <Content Include="assets\CustomJS\datatables_jquery_1.10.19.min.js" />
@@ -211,6 +212,8 @@
     <Content Include="assets\CustomJS\jquery-ui.min.js" />
     <Content Include="assets\CustomJS\jquery.magicsearch.js" />
     <Content Include="assets\CustomJS\jquery.tableTotal.js" />
+    <Content Include="assets\CustomJS\jquery.validate.js" />
+    <Content Include="assets\CustomJS\jquery.validate.unobtrusive.min.js" />
     <Content Include="assets\CustomJS\notify.min.js" />
     <Content Include="assets\CustomJS\sweetalert2.all.min.js" />
     <Content Include="assets\CustomStyle.css" />
