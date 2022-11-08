@@ -1,66 +1,220 @@
-﻿<style>
+﻿@{
+    ViewBag.Title = "Product";
+}
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -moz-appearance: textfield !important;
+        -webkit-appearance: none;
+        margin: 0;
+    } 
+    fieldset.scheduler-border {
+        border: 1px solid #ccc;
+        padding: 0px 5px 10px 5px;
+        -webkit-box-shadow: 0px 0px 0px 0px #000;
+        box-shadow: 0px 0px 0px 0px #000;
+    }
+
+    legend.scheduler-border {
+        margin-bottom: 5px;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: left;
+        width: auto;
+        padding: 0 0px;
+        border-bottom: none;
+        margin-left: -15px;
+    }
+
+    /*pagination*/
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {
         -moz-appearance: textfield !important;
         -webkit-appearance: none;
         margin: 0;
     }
+
+    .pagination {
+        margin: 0px;
+    }
+
+        .pagination span {
+            padding: 1px 9px;
+            height: 25px;
+            background-color: #dddddd;
+            border: 1px solid #868e96 !important;
+            color: #000;
+        }
+
+    .focusNumber {
+        background-color: #3C8DBC !important;
+        color: #fff;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .activePage {
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .pageNumbers:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    }
+    /*./pagination*/
+
+    .table tbody > tr > td {
+        vertical-align: middle !important;
+    }
+
+    .table tbody > tr > th {
+        vertical-align: middle !important;
+    }
+
+    .info-box-text {
+        text-transform: uppercase;
+        text-align: center;
+        padding-bottom: 10px;
+        font-size: 18px;
+        color: #000;
+    }
+
+    .info-box-content {
+        padding: 9px 10px;
+        margin-left: 90px;
+    }
+
+    .attendance:hover .info-box-content {
+        background: #f39c12;
+        color: #fff;
+    }
+
+    .attendance:hover .info-box-text {
+        color: #fff;
+    }
+
+    .currenttime ul {
+        padding: 0px;
+        margin: 0px;
+    }
+
+        .currenttime ul li {
+            display: inline;
+        }
+
+    input, select, textarea {
+        height: 31px;
+        width: 100% !important;
+    }
+
+    .checkboxSize {
+        height: 20px;
+        width: 100% !important;
+    }
+
+    th {
+        white-space: nowrap;
+        border: 1px solid #ccc !important;
+    }
+
+        th.trBorder, td {
+            border: 1px solid #ccc !important;
+        }
+
+    #searchpagenumber {
+        border: 1px solid #868e96 !important;
+    }
+
+    .box {
+        margin-bottom: 0px;
+    }
+
+    @@media(min-width:768px) and (max-width:1280px) {
+        .screensize {
+            width: 100% !important;
+        }
+    }
 </style>
+<link href="~/assets/bootsrap.custom.css" rel="stylesheet" />
+<section class="content-header">
+    <ol class="breadcrumb">
+        <li><a href="~/Home/Index"><i class="fa fa-home"></i> Home</a></li>
+    </ol>
+    <ol class="breadcrumb">
+        <button class="btn btn-green" data-target="#addmodal" @*id="myModal"*@ data-toggle="modal"> <i class="fa fa-plus"></i> Add Product</button>
+    </ol>
+</section>
 
-
-<div class="jumbotron">
-    <div class="container">
-        <div class="row">
-            <form id="create">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label class="col-md-12 col-xs-12 control-label align-right">Product Name</label>
-                        <div class="col-md-12 col-xs-12">
-                            <div class="input-group">
-                                <input type="hidden" class="form-control" name="Id" id="Id" />
-                                <input type="text" class="form-control" name="ProductName" id="ProductName" autocomplete="off" />
+<!-- Begin: life time stats -->
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-settings font-green"></i>
+            <a href="~/Home/Index"><i class="fa fa-home"></i> Home</a>
+        </div>
+        <div class="actions">
+            <div class="btn-group btn-group-solid pull-right">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End: life time stats -->
+<!--Modal Area Start-->
+<div id="addmodal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="addform" class="form-horizontal" id="form_sample_1" novalidate>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                    <h4 class="modal-title">Add Product</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">
+                                        Product Name :
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="hidden" class="form-control" name="Id" id="Id" />
+                                        <input type="text" class="form-control" name="ProductName" id="ProductName" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">
+                                        Buying Price :
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="number" class="form-control" name="BuyingPrice" id="BuyingPrice" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">
+                                        Selling Price :
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="number" class="form-control" name="SellingPrice" id="SellingPrice" autocomplete="off" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="clearfix"></div>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label class="col-md-12 col-xs-12 control-label align-right">Buying Price</label>
-                        <div class="col-md-12 col-xs-12">
-                            <div class="input-group">
-                                <input type="number" class="form-control" name="BuyingPrice" id="BuyingPrice" autocomplete="off" />
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label class="col-md-12 col-xs-12 control-label align-right">Selling Price</label>
-                        <div class="col-md-12 col-xs-12">
-                            <div class="input-group">
-                                <input type="number" class="form-control" name="SellingPrice" id="SellingPrice" autocomplete="off" />
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>  
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <input type="submit" class="btn btn-primary pull-right" name="btnSave" id="btnSave" value="Save" />
-                            <input type="submit" class="btn btn-warning pull-left" id="btnCancel" value="Cancel" />
-                        </div>
-                    </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary pull-right" name="btnSave" id="btnSave" value="Save" />
+                    <input type="submit" class="btn btn-warning pull-left" id="btnCancel" value="Cancel" />
                 </div>
             </form>
         </div>
     </div>
 </div>
+<!--Modal Area End-->
 
-<div>
+<div style="top:5px;">
     <section class="content">
         <div class="row" style="padding-bottom: 10px;margin-right:0px;margin-left:0px;">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -96,6 +250,9 @@
 
         GetProductList();
 
+        $('#myModal').click(function () {
+            $('#addmodal').modal('show');
+        });
 
         $('#btnSave').click(function () {
 
@@ -110,10 +267,10 @@
             else if ($('#SellingPrice').val() == '') {
                 toastr["error"]('Selling Price Required');
                 return false;
-            }            
+            }
             else {
 
-                var data = $('#create').serialize();
+                var data = $('#addform').serialize();
 
                 $.ajax({
                     type: 'Post',

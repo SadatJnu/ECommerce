@@ -1,11 +1,478 @@
-﻿<!DOCTYPE html>
+﻿@using Newtonsoft.Json;
+@using ECommerce.BusinessLogics.Models;
+@{
+    Customer userinfo = JsonConvert.DeserializeObject<Customer>(User.Identity.Name);
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <title>@ViewBag.Title - E-Commerce Application</title>
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+
+    <style type="text/css">
+        .jqstooltip {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            visibility: hidden;
+            background: rgb(0, 0, 0) transparent;
+            background-color: rgba(0,0,0,0.6);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+            -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+            color: white;
+            font: 10px arial, san serif;
+            text-align: left;
+            white-space: nowrap;
+            padding: 5px;
+            border: 1px solid white;
+            box-sizing: content-box;
+            z-index: 10000;
+        }
+
+        .jqsfield {
+            color: white;
+            font: 10px arial, san serif;
+            text-align: left;
+        }
+    </style>
+
+    <style>
+        span.glyphicon.glyphicon-calendar {
+            cursor: pointer;
+        }
+
+        .btn-info:hover {
+            color: #ffffff !important;
+            background-color: #0062cc !important;
+            border-color: #ffa700 !important;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background-color: #222d32;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .logo {
+            display: block !important;
+        }
+
+        .logomb {
+            display: none !important;
+        }
+
+        .width460 {
+            width: 460px !important;
+            z-index: 1000;
+        }
+
+        .width360 {
+            width: 360px !important;
+        }
+
+        .width0 {
+            width: 0px !important;
+        }
+
+        #tblempsList th {
+            font-size: 13px !important;
+        }
+
+        #pages input, #holidayPages input, #viewTablepage input {
+            width: 40px !important;
+            height: 28px !important;
+        }
+
+        @@media(max-width:767px) {
+            .sidenav {
+                top: 50px;
+            }
+
+            .logo {
+                display: none !important;
+            }
+
+            .logomb {
+                display: block !important;
+                float: left;
+                line-height: 50px;
+                color: #fff;
+            }
+
+            .content-header {
+                margin-top: 50px !important;
+            }
+
+            .sidenav {
+                top: 0px !important;
+            }
+
+            .control-sidebar {
+                padding-top: 0px !important;
+            }
+
+            #tblempsList th {
+                font-size: 8px !important;
+            }
+
+            #tblempsList.table thead > tr > th {
+                padding: 0 !important;
+            }
+
+            .width460 {
+                width: 360px !important;
+                z-index: 1000;
+            }
+
+            .main-sidebar {
+                padding-top: 50px !important;
+            }
+
+            #pages span, #holidayPages span {
+                padding: 2px 5px 2px 2px !important;
+                font-size: 10px !important;
+            }
+
+            #pages span {
+                padding: 2px 5px 2px 2px !important;
+                font-size: 9px !important;
+            }
+
+            #pages input, #holidayPages input, #viewTablepage input {
+                width: 40px !important;
+                height: 16px !important;
+            }
+
+            .form-control {
+                font-size: 12px !important;
+            }
+
+            body {
+                font-size: 12px !important;
+            }
+
+            .info-box-text {
+                font-size: 12px !important;
+            }
+
+            .currenttime {
+                font-size: 16px !important;
+            }
+
+            .btn-lg {
+                margin-right: 5px !important;
+            }
+
+            .btn-lg {
+                padding: 5px 8px !important;
+                font-size: 12px !important;
+                line-height: 1.33;
+                border-radius: 6px;
+            }
+
+            .content-header > h1 {
+                font-size: 18px !important;
+            }
+
+            #customBlock {
+                margin-top: 0px !important;
+            }
+
+            .tblEmp {
+                height: auto !important;
+            }
+
+            .table tbody > tr > td, .table tfoot > tr > td {
+                padding: 5px 8px !important;
+                line-height: 15px !important;
+                vertical-align: middle !important;
+            }
+
+            label {
+                font-size: 12px !important;
+            }
+
+            .sidebar-menu > li > a {
+                padding: 3px 5px 3px 15px !important;
+            }
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 16px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+            .sidenav a:hover {
+                color: #f1f1f1;
+            }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 30px;
+            right: 0px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        @@media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+
+                .sidenav a {
+                    font-size: 18px;
+                }
+        }
+
+
+        .black-color {
+            color: black;
+        }
+
+        .white-color {
+            color: white;
+        }
+
+        .red-color {
+            color: red;
+        }
+
+        .green-color {
+            color: green;
+        }
+
+        .yellow-color {
+            color: yellow;
+        }
+
+        .blue-color {
+            color: blue;
+        }
+
+        .main-header {
+            position: fixed !important;
+            width: 100%;
+        }
+
+        .main-sidebar {
+            position: fixed !important;
+        }
+
+        .content-header {
+            margin-top: 50px;
+        }
+        /**** menu icon color *****/
+        .sidebar-menu > li > a > .fa, .sidebar-menu > li > a > .glyphicon, .sidebar-menu > li > a > .ion {
+            width: 35px !important;
+            height: 35px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            background: #3c8dbc;
+        }
+
+        /*.content-header {
+            margin-top: 0px;
+        }*/
+    </style>
+
+    <style>
+        #control-sidebar {
+            position: fixed;
+        }
+
+        .skin-blue .main-header .logo {
+            background-color: #0E0A46 !important;
+            color: #fff !important;
+        }
+
+        .skin-blue .main-header .navbar {
+            background-color: #8c91a8 !important;
+        }
+
+            .skin-blue .main-header .navbar .sidebar-toggle:hover {
+                background-color: #7C7A97 !important;
+            }
+
+            .skin-blue .main-header .navbar .nav > li > a:hover, .skin-blue .main-header .navbar .nav > li > a:active, .skin-blue .main-header .navbar .nav > li > a:focus, .skin-blue .main-header .navbar .nav .open > a, .skin-blue .main-header .navbar .nav .open > a:hover, .skin-blue .main-header .navbar .nav .open > a:focus, .skin-blue .main-header .navbar .nav > .active > a {
+                background: #7C7A97 !important;
+                color: #f6f6f6;
+            }
+
+        .control-sidebar-dark, .control-sidebar-dark + .control-sidebar-bg {
+            background: #0E0A46 !important;
+        }
+
+        .control-sidebar-menu .menu-icon {
+            width: 25px !important;
+            height: 25px !important;
+            line-height: 25px !important;
+        }
+
+        #greenColor {
+            background-color: #0E0A46 !important;
+            height: 95px !important;
+            cursor: default !important;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #0E0A46 !important;
+            border-color: #0E0A46 !important;
+        }
+
+            .btn-primary:hover, #breakSubmit:hover {
+                color: #ffffff !important;
+                background-color: #ffc301 !important;
+                border-color: #ffc301 !important;
+            }
+
+        .btn-success {
+            color: #fff;
+            background-color: #0E0A46 !important;
+            border-color: #0E0A46 !important;
+        }
+
+        .btn:hover {
+            color: #ffffff !important;
+            background-color: #ffc301 !important;
+            border-color: #ffc301 !important;
+        }
+
+        .scheduleActivePage, .activePage {
+            background-color: #8c91a8 !important;
+            color: #fff !important;
+        }
+
+        .schedulePageNumbers:hover, .pageNumbers:hover, .pageNumbers:hover {
+            background-color: #0E0A46 !important;
+            color: white !important;
+        }
+
+        .scheduleSearchPageButton, .searchpagebutton {
+            background-color: #0E0A46 !important;
+            color: white !important;
+        }
+
+        .holidayActivePage {
+            background-color: #8c91a8 !important;
+            color: white !important;
+        }
+
+        .holidaySearchPageButton {
+            background-color: #0E0A46 !important;
+            color: white !important;
+        }
+
+        .holidaySearchPageButton {
+            background-color: #0E0A46 !important;
+            color: white !important;
+        }
+
+        .holidayPageNumber:hover {
+            background-color: #0E0A46 !important;
+            color: white !important;
+        }
+
+        <canvas id="canvas" width="80" height="80" style="background-color:#233172;padding-top: 5px;" > </canvas > .scheduleActivePage {
+            background-color: #8c91a8 !important;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .scheduleSearchPageButton {
+            background-color: #233172 !important;
+            color: white !important;
+        }
+
+        .main-header {
+            position: relative;
+            max-height: 55px;
+            z-index: 1030;
+            border-bottom: 5px solid #C21616 !important;
+        }
+
+        .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
+            background-color: #0E0A46 !important;
+        }
+
+        .sidebar-menu > li > a > .fa, .sidebar-menu > li > a > .glyphicon, .sidebar-menu > li > a > .ion {
+            margin-left: -9px;
+            width: 25px !important;
+            height: 25px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            background: #233172 !important;
+        }
+
+        .skin-blue .sidebar a {
+            color: #fff !important;
+        }
+
+        .skin-blue .sidebar-menu > li.header {
+            color: #fff !important;
+            background: #1c1f31 !important;
+        }
+
+        .box.box-info {
+            border-top-color: #233172 !important;
+        }
+
+        .button-style, #showUserName {
+            background-color: #0E0A46;
+            color: white;
+        }
+
+        table .fc-col-header tr {
+            border: 1px solid #ccc;
+            background: #cecdcd !important;
+        }
+
+        .fc-widget-header {
+            background: #ccc !important;
+        }
+
+        .btn-info {
+            color: #fff;
+            background-color: #0E0A46 !important;
+            border-color: #46b8da;
+        }
+    </style>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/assets/css/theme/ionicons.css" rel="stylesheet" />
+    <link href="~/assets/css/theme/jquery-jvectormap.css" rel="stylesheet" />
+    <link href="~/assets/css/theme/AdminLTE.css" rel="stylesheet" />
+    <link href="~/assets/css/theme/_all-skins.css" rel="stylesheet" />
+    <link href="~/assets/css/theme/css.css" rel="stylesheet" />
+    <link rel="stylesheet" crossorigin="anonymous" href="~/assets/css/theme/main.css">
+    <link href="~/assets/portletTitle.css" rel="stylesheet" />
+
+    <link href="~/assets/CustomStyle.css" rel="stylesheet" />
+    <link href="~/assets/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href='//fonts.googleapis.com/css?family=Cagliostro' rel='stylesheet' type='text/css'>
+    <script src="~/assets/CustomJS/ajax_googleapis_com_libs_jquery_1.7.2_jquery.min.js"></script>
+    <link href="~/assets/datatables_jquery_1.10.19.min.css" rel="stylesheet" />
+    <link href="~/assets/sweetalert2.all.min.css" rel="stylesheet" />
+
 </head>
 <body class="skin-blue sidebar-mini" style="height: auto; min-height: 100%;">
     @*<div class="navbar navbar-inverse navbar-fixed-top">
@@ -50,14 +517,14 @@
         <header class="main-header">
             <a href="/" class="logo">
                 <span class="logo-mini"><b>E</b>C</span>
-                <span class="logo-lg"><b>ECommerc</b></span>
+                <span class="logo-lg"><b>E-</b>Commerc</span>
             </a>
 
             <nav class="navbar navbar-static-top">
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"> <span class="sr-only">Toggle navigation</span> </a>
                 <a href="/" class="logomb">
-                    <span class="logo-lg"><b>ECommerc</b></span>
-                </a>               
+                    <span class="logo-lg"><b>E-</b>Commerc</span>
+                </a>
             </nav>
         </header>
 
@@ -71,7 +538,7 @@
             </section>
         </aside>
 
-        <div class="content-wrapper">       
+        <div class="content-wrapper">
 
             @RenderBody()
 
@@ -85,9 +552,30 @@
 
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)*@
+
+    <script src="~/assets/js/theme/fastclick.js"></script>
+    <script src="~/assets/js/theme/adminlte.js"></script>
+    <script src="~/assets/js/theme/jquery_003.js"></script>
+    <script src="~/assets/js/theme/jquery-jvectormap-1.js"></script>
+    <script src="~/assets/js/theme/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="~/assets/js/theme/jquery_002.js"></script>
+    <script src="~/assets/js/theme/Chart.js"></script>
+    <script src="~/assets/js/theme/dashboard2.js"></script>
+    <script src="~/assets/js/theme/demo.js"></script>
+
+    <script src="~/assets/CustomJS/jquery-ui.min.js"></script>
+    <script src="~/assets/jquery.validate.js"></script>
+    <script src="~/assets/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/assets/bootstrap.min.js"></script>
+    <script src="~/assets/CustomJS/bootstrap-datepicker.js"></script>
+    <script src="~/assets/CustomJS/CustomJS.js"></script>
+    <script src="~/assets/CustomJS/imagePreview.js"></script>
+    <script src="~/assets/CustomJS/notify.min.js"></script>
+    <script src="~/assets/CustomJS/datatables_jquery_1.10.19.min.js"></script>
+    <script src="~/assets/CustomJS/sweetalert2.all.min.js"></script>
 
 
 </body>

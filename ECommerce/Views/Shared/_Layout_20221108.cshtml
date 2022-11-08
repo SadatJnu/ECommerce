@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body class="skin-blue sidebar-mini" style="height: auto; min-height: 100%;">
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Product", "Index", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Sell", "Sell", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Report", "Report", "Home", new { area = "" }, null)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>*@
+
+    @*<div class="container body-content">
+            <aside class="main-sidebar">
+                <section class="sidebar" style="height: auto;">
+                    <ul class="sidebar-menu tree" data-widget="tree">
+                        <li class="header">MAIN NAVIGATION</li>
+                        <li class="active treeview menu-open"></li>
+                        @Html.Action("LeftSideBar", "Navbar")
+                    </ul>
+                </section>
+            </aside>
+
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now</p>
+            </footer>
+        </div>*@
+
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+        <header class="main-header">
+            <a href="/" class="logo">
+                <span class="logo-mini"><b>E</b>C</span>
+                <span class="logo-lg"><b>ECommerc</b></span>
+            </a>
+
+            <nav class="navbar navbar-static-top">
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"> <span class="sr-only">Toggle navigation</span> </a>
+                <a href="/" class="logomb">
+                    <span class="logo-lg"><b>ECommerc</b></span>
+                </a>               
+            </nav>
+        </header>
+
+        <aside class="main-sidebar">
+            <section class="sidebar" style="height: auto;">
+                <ul class="sidebar-menu tree" data-widget="tree">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li class="active treeview menu-open"></li>
+                    @Html.Action("LeftSideBar", "Navbar")
+                </ul>
+            </section>
+        </aside>
+
+        <div class="content-wrapper">       
+
+            @RenderBody()
+
+        </div>
+
+        <footer class="main-footer">
+            <p>&copy; @DateTime.Now </p>
+        </footer>
+
+        <div class="control-sidebar-bg"></div>
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+
+</body>
+</html>

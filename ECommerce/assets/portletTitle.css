@@ -1,0 +1,102 @@
+.portlet.light > .portlet-title {
+    margin-bottom: 10px !important;
+}
+
+.portlet.light {
+    padding: 0 0 !important;
+    border-radius: 7px !important;
+}
+
+    .portlet.light.bordered {
+        border: 1px solid #F9B7A1 !important;
+    }
+
+.portlet-title {
+    background: rgba(252, 122, 82, 0.781) !important;
+    border-top-right-radius: 7px !important;
+    border-top-left-radius: 7px !important;
+    padding: 0 10px !important;
+}
+
+.portlet.light .portlet-body {
+    padding: 0 30px !important;
+}
+
+.portlet.light > .portlet-title > .caption {
+    color: #666;
+    padding: 15px 0;
+    margin-top: 0px !important;
+    width: 100%;
+}
+
+.portlet.light > .portlet-title > .actions {
+    margin-top: -12px;
+}
+
+.portlet.box.blue-hoki {
+    border: 1px solid #FCA88D;
+    border-radius: 9px !important;
+}
+
+.Top-Absents .portlet-title {
+    background: #fff !important;
+    border-bottom: none !important;
+}
+
+    .Top-Absents .portlet-title .caption-subject {
+        color: #009DB8 !important;
+    }
+
+.Leave-List .table h5 b {
+    color: #00BFA2;
+}
+
+.Leave-List .portlet-title .caption-subject {
+    color: #00BFA2 !important;
+}
+
+.Late-list .table h5 b {
+    color: #12B8E2;
+}
+
+.Late-list .portlet-title .caption-subject {
+    color: #12B8E2 !important;
+}
+
+.Absconding-list .table h5 b {
+    color: #1A7DD4;
+}
+
+.Absconding-list .portlet-title .caption-subject {
+    color: #1A7DD4 !important;
+}
+
+.portlet.light > .portlet-title {
+    min-height: 0 !important;
+}
+
+.portlet > .portlet-title {
+    margin-bottom: 0px !important;
+}
+
+.Top-Absents .table td {
+    padding: 2px !important;
+}
+
+.portlet {
+    margin-bottom: 0px !important;
+}
+
+.fees-reminder .portlet-title {
+    background: #fff !important;
+}
+
+    .fees-reminder .portlet-title .caption .caption-subject {
+        color: #009db8 !important;
+    }
+
+.Sender .portlet-title {
+    background: #fff !important;
+    color: #009DB8;
+    text-align: left !important;
+}
