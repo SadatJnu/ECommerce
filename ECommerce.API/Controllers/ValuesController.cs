@@ -17,7 +17,7 @@ namespace ECommerce.API.Controllers
     {       
 
         [Route("Values/AddUpdateData/")]
-        [HttpPost]
+        [HttpPut]
         public IHttpActionResult AddUpdateData(Product product)
         {
             try

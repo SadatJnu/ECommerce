@@ -2,6 +2,9 @@
     ViewBag.Title = "Product";
 }
 <style>
+    .required {
+        color:red !important;
+    }
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {
         -moz-appearance: textfield !important;
@@ -148,7 +151,7 @@
         <li><a href="~/Home/Index"><i class="fa fa-home"></i> Home</a></li>
     </ol>
     <ol class="breadcrumb">
-        <button class="btn btn-green" data-target="#addmodal" data-toggle="modal"> <i class="fa fa-plus"></i> Add Product</button>
+        <button class="btn btn-green" @*data-target="#addmodal"*@ id="modalShowing" data-toggle="modal"> <i class="fa fa-plus"></i> Add Product</button>
     </ol>
 </section>
 
@@ -173,7 +176,7 @@
             <form name="addform" class="form-horizontal" id="addform" novalidate>
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                    <h4 class="modal-title">Add Product</h4>
+                    <h4 class="modal-title"><span id="title"></span></h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-body">
@@ -216,7 +219,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-2 pull-right">
-                                    <input type="submit" class="btn btn-warning pull-left" id="btnCancel" value="Cancel" />
+                                    @*<input type="submit" class="btn btn-warning pull-left" id="btnCancel" value="Cancel" />*@
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>
                                 <div class="col-md-2 pull-right">
                                     <input type="submit" class="btn btn-primary pull-right" name="btnSave" id="btnSave" value="Save" />
@@ -268,50 +272,59 @@
         GetProductList();
 
         $('#btnSave').click(function () {
-
-            if ($('#ProductName').val().trim() == '') {
+            if ($('#ProductName').val().trim() == '')
+            {
                 toastr["error"]('Product Name Required');
                 return false;
             }
-            else if ($('#BuyingPrice').val() == '') {
+            else if ($('#BuyingPrice').val() == '')
+            {
                 toastr["error"]('Buying Price Required');
                 return false;
             }
-            else if ($('#SellingPrice').val() == '') {
+            else if ($('#SellingPrice').val() == '')
+            {
                 toastr["error"]('Selling Price Required');
                 return false;
             }
-            else {
-
-                var data = $('#addform').serialize();
-
-                $.ajax({
-                    type: 'Post',
-                    url: baseUrl + 'Values/AddUpdateData/',
-                    data: data,
-                    success: function (res) {
-                        console.log(res);
-                        toastr["success"](res.Message);
-                        /*GetProductList();*/
-                        window.location.reload();
-                    },
-                    error: function (res) {
-                        console.log(res);
-                        toastr["error"](res.Message);
-                    }
-                });
-            }
+            else
+            {
+                //var data = $('#addform').serialize();
+               var data =
+               {
+                    Id: $('#Id').val(),
+                    ProductName: $('#ProductName').val().trim(),
+                    BuyingPrice: $('#BuyingPrice').val(),
+                    SellingPrice: $('#SellingPrice').val()
+               }
+                    $.ajax({
+                        type: 'PUT',
+                        url: baseUrl + 'Values/AddUpdateData/',
+                        data: data,
+                        success: function (res) {
+                            console.log(res);
+                            toastr["success"](res.Message);
+                            /*GetProductList();*/
+                            window.location.reload();
+                        },
+                        error: function (res) {
+                            console.log(res);
+                            toastr["error"](res.Message);
+                        }
+                    });
+             }
         });
 
     });
 
 
-    $("#btnCancel").on('click', function (e) {
+    $("#modalShowing").on('click', function (e) {
         $("#Id").val('');
         $("#ProductName").val('');
         $("#BuyingPrice").val('');
         $("#SellingPrice").val('');
-        $('#addmodal').modal('hide');
+        $('#title').html('Add Product');
+        $('#addmodal').modal('show');
     });
 
     function GetProductList() {
@@ -363,6 +376,7 @@
                 $('#ProductName').val(res.result[0].ProductName);
                 $('#BuyingPrice').val(res.result[0].BuyingPrice);
                 $('#SellingPrice').val(res.result[0].SellingPrice);
+                $('#title').html('Update Product');
                 $('#addmodal').modal('show');
             },
             error: function (res) {
@@ -374,20 +388,24 @@
 
     $('body').on('click', '.btnDelete', function (e) {
         var id = e.target.value;
-        $.ajax({
-            type: "Delete",
-            url: baseUrl + 'Values/DeletItem/' + id,
-            contentType: "application/json; charset=utf-8",
-            success: function (res) {
-                toastr["success"](res.Message);
-                GetProductList();
-                console.log(res);
-            },
-            error: function (res) {
-                console.log(res);
-                toastr["error"](res.Message);
-            }
-        });
+        var _confirm = confirm("Are you sure you want to delete this ?");
+        if (_confirm == true) {
+            $.ajax({
+                type: "Delete",
+                url: baseUrl + 'Values/DeletItem/' + id,
+                contentType: "application/json; charset=utf-8",
+                success: function (res) {
+                    toastr["success"](res.Message);
+                    GetProductList();
+                    console.log(res);
+                },
+                error: function (res) {
+                    console.log(res);
+                    toastr["error"](res.Message);
+                }
+            });
+        }
+        _confirm = false;
     });
 
 
