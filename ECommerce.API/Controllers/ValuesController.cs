@@ -93,11 +93,11 @@ namespace ECommerce.API.Controllers
                 {
                     foreach(var item in lstItem)
                     {
-                        Customer lst = new Customer();
-                        lst.CustomerName = item.CustomerName.Trim();
-                        lst.IsDeleted = false;
-                        lst.AddDate = DateTime.Now;
-                        var res = DataAccess.Instance.customerService.Add(lst);
+                        Customer entity = new Customer();
+                        entity.CustomerName = item.CustomerName.Trim();
+                        entity.IsDeleted = false;
+                        entity.AddDate = DateTime.Now;
+                        var res = DataAccess.Instance.customerService.Add(entity);
                     }                    
                 }
 
