@@ -37,7 +37,7 @@ namespace ECommerce.BusinessLogics.Services
             lst.ProductName = entity.ProductName.Trim();
             lst.BuyingPrice = entity.BuyingPrice;
             lst.SellingPrice = entity.SellingPrice;
-            lst.AddDate = DateTime.Now;
+            lst.UpdateDate = DateTime.Now;
             return _ProductRepository.Update(lst);
         }
 

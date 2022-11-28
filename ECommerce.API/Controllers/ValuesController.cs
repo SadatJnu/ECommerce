@@ -69,6 +69,18 @@ namespace ECommerce.API.Controllers
             }
         }
 
+        List<Customer> lstItem = new List<Customer>
+          {
+            new Customer {Id =1, CustomerName = "Abdul Karim", IsDeleted = false, AddDate = DateTime.Now },
+
+            new Customer {Id =2, CustomerName = "Abdur Rahim",  IsDeleted = false, AddDate = DateTime.Now },
+
+            new Customer {Id =3, CustomerName = "Abdur Rahman",  IsDeleted = false, AddDate = DateTime.Now },
+
+            new Customer {Id =4, CustomerName = "Abdul Hakim",  IsDeleted = false, AddDate = DateTime.Now },
+
+            new Customer {Id =5, CustomerName = "Sadat Abdulla",  IsDeleted = false, AddDate = DateTime.Now }
+          };
         [Route("Values/GetCustomerList/")]
         [HttpGet]
         public IHttpActionResult GetCustomerList()
@@ -76,6 +88,18 @@ namespace ECommerce.API.Controllers
             try
             {
                 var result = DataAccess.Instance.customerService.Filter(e => e.IsDeleted == false).ToList();
+
+                if(result == null)
+                {
+                    foreach(var item in lstItem)
+                    {
+                        Customer lst = new Customer();
+                        lst.CustomerName = item.CustomerName.Trim();
+                        lst.IsDeleted = false;
+                        lst.AddDate = DateTime.Now;
+                        var res = DataAccess.Instance.customerService.Add(lst);
+                    }                    
+                }
 
                 return Json(new { result, Message = "Data Found." });
             }

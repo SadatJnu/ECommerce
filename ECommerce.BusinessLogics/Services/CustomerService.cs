@@ -19,10 +19,18 @@ namespace ECommerce.BusinessLogics.Services
         {
             _CustomerRepository = new CustomerRepository();
         }
-
         public bool Add(Customer entity)
+        {           
+            return _CustomerRepository.Add(entity);
+        }
+
+        public bool Update(Customer entity)
         {
-            throw new NotImplementedException();
+            Customer lst = new Customer();
+            lst.Id = entity.Id;
+            lst.CustomerName = entity.CustomerName.Trim();
+            lst.UpdateDate = DateTime.Now;
+            return _CustomerRepository.Update(lst);
         }
 
         public IEnumerable<Customer> Filter(Expression<Func<Customer, bool>> filter, Func<IQueryable<Customer>, IOrderedQueryable<Customer>> orderBy = null, string[] Children = null)
@@ -39,10 +47,6 @@ namespace ECommerce.BusinessLogics.Services
         {
             throw new NotImplementedException();
         }
-
-        public bool Update(Customer entity)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

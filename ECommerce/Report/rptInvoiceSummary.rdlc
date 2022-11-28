@@ -14,6 +14,10 @@
         <CommandText />
       </Query>
       <Fields>
+        <Field Name="QrCode">
+          <DataField>QrCode</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
         <Field Name="CustomerName">
           <DataField>CustomerName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -792,7 +796,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox5</rd:DefaultName>
             <Top>0.06666in</Top>
-            <Left>8.07718in</Left>
+            <Left>7.07718in</Left>
             <Height>0.25in</Height>
             <Width>1in</Width>
             <ZIndex>5</ZIndex>
@@ -831,7 +835,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox5</rd:DefaultName>
             <Top>0.06666in</Top>
-            <Left>9.05496in</Left>
+            <Left>8.05496in</Left>
             <Height>0.25in</Height>
             <Width>2.04768in</Width>
             <ZIndex>6</ZIndex>
@@ -846,6 +850,22 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Image Name="Image3">
+            <Source>Database</Source>
+            <Value>=First(Fields!QrCode.Value, "SPResults")</Value>
+            <MIMEType>image/jpeg</MIMEType>
+            <Sizing>Fit</Sizing>
+            <Top>0.04583in</Top>
+            <Left>10.45615in</Left>
+            <Height>0.54516in</Height>
+            <Width>0.64647in</Width>
+            <ZIndex>7</ZIndex>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Image>
         </ReportItems>
         <Height>1.81738in</Height>
         <Style>
