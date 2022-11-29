@@ -341,13 +341,14 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Sell.cshtml" />
+    <Content Include="Views\Home\Sell_20221130.cshtml" />
     <Content Include="Views\Home\Report.cshtml" />
     <Content Include="Scripts\toastr.min.js.map" />
     <Content Include="Views\Home\Sellbkp.cshtml" />
     <Content Include="Views\Home\Sell_20221019.cshtml" />
     <Content Include="Views\Navbar\_LeftNavbar.cshtml" />
     <Content Include="Views\Shared\_Layout_20221108.cshtml" />
+    <Content Include="Views\Home\Sell.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
