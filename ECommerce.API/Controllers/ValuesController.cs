@@ -50,7 +50,8 @@ namespace ECommerce.API.Controllers
             catch (Exception ex)
             {
                 return Json(new { Status = "error", Message = ex.Message.ToString() });
-            }
+                //return BadRequest(ex.Message.ToString());
+            }            
         }
 
         [Route("Values/GetProductList/")]

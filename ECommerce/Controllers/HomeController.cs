@@ -42,6 +42,16 @@ namespace ECommerce.Controllers
             rptViewer.Width = Unit.Percentage(100);
             rptViewer.LocalReport.ReportPath = Server.MapPath("~/Report/rptSellSummary.rdlc");
             rptViewer.LocalReport.EnableExternalImages = true;
+
+            dtResult.Columns.Add(new DataColumn("QrCode", typeof(byte[])));
+            dtResult.Columns.Add(new DataColumn("BarCode", typeof(byte[])));
+            foreach (DataRow dr in dtResult.Rows)
+            {
+                string value = "Invoice : " + dr["CustomerName"].ToString() + " , " + dr["InvoiceNo"].ToString();
+                dr["QrCode"] = GetQrCode(value);
+                dr["BarCode"] = GetBarCode(value);
+            }
+
             rptViewer.LocalReport.DataSources.Add(new ReportDataSource("SPResults", dtResult));
             rptViewer.LocalReport.Refresh();
 
@@ -62,10 +72,12 @@ namespace ECommerce.Controllers
             rptViewer.LocalReport.EnableExternalImages = true;
 
             dt.Columns.Add(new DataColumn("QrCode", typeof(byte[])));
+            dt.Columns.Add(new DataColumn("BarCode", typeof(byte[])));
             foreach (DataRow dr in dt.Rows)
             {
-                string value = "Invoice : " + dr["CustomerName"].ToString() + " , " + dr["InvoiceNo"].ToString();
+                string value = "Invoice : " + dr["CustomerName"].ToString() + " , " + TokenKey;
                 dr["QrCode"] = GetQrCode(value);
+                dr["BarCode"] = GetBarCode(value);
             }
 
             rptViewer.LocalReport.DataSources.Add(new ReportDataSource("SPResults", dt));
@@ -88,25 +100,63 @@ namespace ECommerce.Controllers
 
         private byte[] GetQrCode(string Content)
         {
-            var qr = new BarcodeWriter();
-            qr.Options = new QrCodeEncodingOptions
+            try
             {
-                DisableECI = true,
-                CharacterSet = "UTF-8",
-                Width = 230,
-                Height = 230,
-            };
-            qr.Format = BarcodeFormat.QR_CODE;
-
-            using (MemoryStream ms = new MemoryStream())
-            {
-                using (Bitmap bm1 = new Bitmap(qr.Write(Content)))
+                var qr = new BarcodeWriter();
+                qr.Options = new QrCodeEncodingOptions
                 {
-                    bm1.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                    return ms.ToArray();
+                    DisableECI = true,
+                    CharacterSet = "UTF-8",
+                    Width = 230,
+                    Height = 230,
+                };
+                qr.Format = BarcodeFormat.QR_CODE;
+
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (Bitmap bm = new Bitmap(qr.Write(Content)))
+                    {
+                        bm.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        return ms.ToArray();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
+
+        private byte[] GetBarCode(string Content)
+        {
+            try
+            {
+                var bar = new BarcodeWriter();
+                bar.Options = new QrCodeEncodingOptions
+                {
+                    DisableECI = true,
+                    CharacterSet = "UTF-8",
+                    Width = 230,
+                    Height = 500,
+                    PureBarcode = false
+                };
+                bar.Format = BarcodeFormat.CODE_128;
+
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (Bitmap bm = new Bitmap(bar.Write(Content)))
+                    {
+                        bm.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        return ms.ToArray();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
 
     }

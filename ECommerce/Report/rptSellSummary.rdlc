@@ -14,6 +14,14 @@
         <CommandText />
       </Query>
       <Fields>
+        <Field Name="QrCode">
+          <DataField>QrCode</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="BarCode">
+          <DataField>BarCode</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
         <Field Name="CustomerName">
           <DataField>CustomerName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -925,10 +933,10 @@
           </Border>
         </Style>
       </Body>
-      <Width>11.31323in</Width>
+      <Width>11.23781in</Width>
       <Page>
         <PageHeader>
-          <Height>0.52792in</Height>
+          <Height>0.50349in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -953,7 +961,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
-              <Top>0.18417in</Top>
+              <Top>0.19279in</Top>
               <Left>4.31324in</Left>
               <Height>0.25in</Height>
               <Width>2.15625in</Width>
@@ -967,6 +975,22 @@
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
+            <Image Name="Image3">
+              <Source>Database</Source>
+              <Value>=First(Fields!BarCode.Value, "SPResults")</Value>
+              <MIMEType>image/jpeg</MIMEType>
+              <Sizing>Fit</Sizing>
+              <Top>0.0607in</Top>
+              <Left>9.8309in</Left>
+              <Height>0.41154in</Height>
+              <Width>1.28189in</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>Solid</Style>
+                </Border>
+              </Style>
+            </Image>
           </ReportItems>
           <Style>
             <Border>

@@ -18,6 +18,10 @@
           <DataField>QrCode</DataField>
           <rd:TypeName>System.Byte</rd:TypeName>
         </Field>
+        <Field Name="BarCode">
+          <DataField>BarCode</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
         <Field Name="CustomerName">
           <DataField>CustomerName</DataField>
           <rd:TypeName>System.String</rd:TypeName>

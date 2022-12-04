@@ -40,7 +40,6 @@ namespace ECommerce.BusinessLogics.Repository
         {
             try
             {
-                //DataTable result = SqlHelper.ExecuteDataTable(ConStr, SpName, parameterValues);
                 DataTable result = SqlHelper.ExecuteDataTable(ConStr, SpName, parameterValues);
                 CommonResponse cr = new CommonResponse(result.Rows.Count > 0 ? HttpStatusCode.Accepted : HttpStatusCode.NoContent);
                 cr.pageno = 0;
@@ -106,9 +105,7 @@ namespace ECommerce.BusinessLogics.Repository
         {
             try
             {
-                //SqlHelper.SqlDbType.Structured
                 DataTable result = SqlHelper.ExecuteDataTable(ConStr, SpName, parameterValues);
-                //string qry = SqlHelper.ToQuery( SpName, parameterValues);
                 return result;
             }
             catch (Exception ex)
@@ -121,9 +118,7 @@ namespace ECommerce.BusinessLogics.Repository
         {
             try
             {
-                //SqlHelper.SqlDbType.Structured
                 DataTable result = SqlHelper.ExecuteDataTable(ConStr, CommandType.StoredProcedure, SpName, parameterValues);
-                //string qry = SqlHelper.ToQuery( SpName, parameterValues);
                 return result;
             }
             catch (Exception ex)
@@ -149,7 +144,6 @@ namespace ECommerce.BusinessLogics.Repository
         {
             try
             {
-
                 DataSet result = SqlHelper.ExecuteDataset(ConStr, SpName, paramValues);
                 CommonResponse cr = new CommonResponse(result.Tables.Count > 0 ? HttpStatusCode.OK : HttpStatusCode.NoContent);
                 cr.results = result;
@@ -169,8 +163,8 @@ namespace ECommerce.BusinessLogics.Repository
                 cr.message = ex.Message;
                 return cr;
             }
-
         }
+
         public CommonResponse getDataTableResponseBySp(int pageno, int pagesize, string SpName, params object[] paramValues)
         {
             try
@@ -203,8 +197,8 @@ namespace ECommerce.BusinessLogics.Repository
                 cr.message = ex.Message;
                 return cr;
             }
-
         }
+
         public object GetScalarValueBySP(string SPName)
         {
             object objValue;
@@ -218,7 +212,6 @@ namespace ECommerce.BusinessLogics.Repository
                 LogHelper.Error(ex);
                 throw ex;
             }
-
         }
         public DataTable GetDatatableBySQL(string SQL)
         {
@@ -234,11 +227,9 @@ namespace ECommerce.BusinessLogics.Repository
                 LogHelper.Error(ex);
                 throw ex;
             }
-
         }
         public dynamic ExecuteSQL(string SQL)
         {
-
             try
             {
                 dynamic objValue;
@@ -249,13 +240,10 @@ namespace ECommerce.BusinessLogics.Repository
             {
                 LogHelper.Error(ex);
                 throw ex;
-
             }
-
         }
         public DataTable ExecuteSQLQUERY(string SQL)
         {
-
             try
             {
                 dynamic objValue;
@@ -267,7 +255,6 @@ namespace ECommerce.BusinessLogics.Repository
                 LogHelper.Error(ex);
                 throw ex;
             }
-
         }
         public dynamic ExecuteSQL(string SQL, params SqlParameter[] commandParameters)
         {
@@ -333,56 +320,9 @@ namespace ECommerce.BusinessLogics.Repository
                 isExist = true;
             }
             return isExist;
-        }
-        public bool WriteLog(int Vid, int SId, int ShId, int ClassId, int GroupId, int MainExamId, string PID, string Msg, string AddBy)
-        {
+        }       
 
-            string strSQL = @"INSERT INTO [dbo].[Res_ExamProccessLog]
-           ([VersionID],[SessionId],[ShiftID],[ClassId],[GroupId],[MainExamId],[PId],[LogTime],[Msg],[AddBy])
-     VALUES(" + Vid + "," + SId + "," + ShId + "," + ClassId + "," + GroupId + "," + MainExamId + ",'" + PID + "',GETDATE(),'" + Msg + "','" + AddBy + "' )";
-            bool isExist = true;
-            DataTable dtResults = new DataTable();
-            try
-            {
-
-                int res = SqlHelper.ExecuteNonQuery(ConStr, CommandType.Text, strSQL);
-                isExist = res > 0 ? true : false;
-            }
-            catch (Exception ex)
-            {
-                LogHelper.Error(ex);
-                throw ex;
-            }
-            return isExist;
-        }
-
-        public bool WriteLog(int Id, decimal DrAmount, decimal CrAmount, string Description, string AddBy)
-        {
-
-            string strSQL = @"INSERT INTO [dbo].[ACC_Logs]
-           ([TransactionDetailId],  [LedgerId],[DrAmount],[CrAmount],[TransactionId],[AddDate],[Description],[AddBy])
-   
-
-            VALUES(" + Id + "," + Id + "," + DrAmount + "," + CrAmount + "," + Id + ",  GETDATE(), '" + Description + "', '" + AddBy + "')";
-
-            ;
-            bool isExist = true;
-            DataTable dtResults = new DataTable();
-            try
-            {
-
-                int res = SqlHelper.ExecuteNonQuery(ConStr, CommandType.Text, strSQL);
-                isExist = res > 0 ? true : false;
-            }
-            catch (Exception ex)
-            {
-                LogHelper.Error(ex);
-                throw ex;
-            }
-            return isExist;
-        }
-
-        public bool WriteLog(string Message, string Status)
+        public bool WriteLog(string Message, string Status, string AddBy)
         {
 
             string strSQL = $"INSERT INTO [dbo].[SystemLogs]([Msg],[LogTime],[Status]) " +
@@ -448,7 +388,6 @@ namespace ECommerce.BusinessLogics.Repository
 
                     throw ex;
                 }
-
             }
         }
         public static List<T> ConvertDataTable<T>(DataTable dt)
@@ -528,5 +467,7 @@ namespace ECommerce.BusinessLogics.Repository
                 throw ex;
             }
         }
+
+
     }
 }

@@ -92,21 +92,11 @@ namespace ECommerce.BusinessLogics.Services
         public bool IsExist(string TableName, string WhereClause)
         {
             return this.commonRepository.IsExist(TableName, WhereClause);
-        }
+        }       
 
-        public bool WriteLog(int Vid, int SId, int ShId, int ClassId, int GroupId, int MainExamId, string Pid, string Msg, string AddBy)
+        public bool WriteLog(string Message, string Status, string AddBy)
         {
-            return this.commonRepository.WriteLog(Vid, SId, ShId, ClassId, GroupId, MainExamId, Pid, Msg, AddBy);
-        }
-
-        public bool WriteLog(int Id, decimal DrAmount, decimal CrAmount, string Description, string AddBy)
-        {
-            return this.commonRepository.WriteLog(Id, DrAmount, CrAmount, Description, AddBy);
-        }
-
-        public bool WriteLog(string Message, string Status)
-        {
-            return this.commonRepository.WriteLog(Message, Status);
+            return this.commonRepository.WriteLog(Message, Status, AddBy);
         }        
         public bool UpdateBySql(string TableName, Dictionary<string, string> Columns, Dictionary<string, string> WhereClauses, params SqlParameter[] sqlParameterlist)
         {
@@ -117,5 +107,7 @@ namespace ECommerce.BusinessLogics.Services
 
             return this.commonRepository.UpdateBySql(TableName, Columns, WhereClauses, sqlParameterlist.ToArray());
         }
+
+
     }
 }
