@@ -90,7 +90,7 @@ namespace ECommerce.API.Controllers
             {
                 var result = DataAccess.Instance.customerService.Filter(e => e.IsDeleted == false).ToList();
 
-                if(result == null)
+                if(result.Count == 0)
                 {
                     foreach(var item in lstItem)
                     {
