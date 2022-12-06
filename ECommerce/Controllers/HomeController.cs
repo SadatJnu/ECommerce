@@ -1,4 +1,6 @@
-﻿using ECommerce.BusinessLogics.AppData;
+﻿using ECommerce.API.App_Start;
+using ECommerce.BusinessLogics.AppData;
+using ECommerce.BusinessLogics.DbContexts;
 using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,34 @@ namespace ECommerce.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+        private ModelDbContext db = new ModelDbContext();
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";

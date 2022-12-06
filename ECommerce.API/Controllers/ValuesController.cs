@@ -1,4 +1,6 @@
-﻿using ECommerce.BusinessLogics.AppData;
+﻿using ECommerce.API.App_Start;
+using ECommerce.BusinessLogics.AppData;
+using ECommerce.BusinessLogics.DbContexts;
 using ECommerce.BusinessLogics.Helpers;
 using ECommerce.BusinessLogics.Models;
 using ECommerce.BusinessLogics.Repository;
@@ -8,13 +10,14 @@ using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace ECommerce.API.Controllers
 {
     [AllowAnonymous]
     public class ValuesController : ApiController
-    {       
+    {
 
         [Route("Values/AddUpdateData/")]
         [HttpPut]

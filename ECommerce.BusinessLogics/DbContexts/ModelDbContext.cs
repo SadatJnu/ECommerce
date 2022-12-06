@@ -9,11 +9,16 @@ namespace ECommerce.BusinessLogics.DbContexts
 {
     public class ModelDbContext : DbContext
     {
-
         public ModelDbContext() : base("name=DefaultConnection")
         {
             Database.SetInitializer<ModelDbContext>(null);
-        }     
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer<ModelDbContext>(null);
+            base.OnModelCreating(modelBuilder);
+        }
 
         public ModelDbContext(string connString)
         {
