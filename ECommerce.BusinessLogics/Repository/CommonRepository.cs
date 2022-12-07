@@ -373,23 +373,7 @@ namespace ECommerce.BusinessLogics.Repository
                 LogHelper.Error(ex);
                 throw ex;
             }
-        }
-        public string ConStr
-        {
-            get
-            {
-                try
-                {
-                    return ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
-                }
-                catch (Exception ex)
-                {
-                    LogHelper.Error(ex);
-
-                    throw ex;
-                }
-            }
-        }
+        }        
         public static List<T> ConvertDataTable<T>(DataTable dt)
         {
             try
@@ -467,7 +451,22 @@ namespace ECommerce.BusinessLogics.Repository
                 throw ex;
             }
         }
+        public string ConStr
+        {
+            get
+            {
+                try
+                {
+                    return ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
+                }
+                catch (Exception ex)
+                {
+                    LogHelper.Error(ex);
 
+                    throw ex;
+                }
+            }
+        }
 
     }
 }

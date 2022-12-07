@@ -320,6 +320,7 @@
     <Compile Include="Models\Logs.cs" />
     <Compile Include="Models\NavBar.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\AspNetUsers.cs" />
     <Compile Include="Models\Sell.cs" />
     <Compile Include="ModelView\NavBarViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -327,12 +328,14 @@
     <Compile Include="Repository\CommonRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\CustomerRepository.cs" />
+    <Compile Include="Repository\AspNetUsersRepository.cs" />
     <Compile Include="Repository\SellRepository.cs" />
     <Compile Include="Repository\ProductRepository.cs" />
     <Compile Include="Services\CommonRepository.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Services\IServiceCommon.cs" />
+    <Compile Include="Services\AspNetUsersService.cs" />
     <Compile Include="Services\SellService.cs" />
     <Compile Include="Services\ProductService.cs" />
   </ItemGroup>

@@ -17,6 +17,8 @@ namespace ECommerce.BusinessLogics.AppData
 
         public SellService sellService = new SellService();
 
+        public AspNetUsersService aspNetUsersService = new AspNetUsersService();
+
 
         private static object _sync = new object();
         public static DataAccess Instance
