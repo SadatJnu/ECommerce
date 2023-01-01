@@ -22,28 +22,28 @@ namespace ECommerce.Controllers
         private ApplicationUserManager _userManager;
         private ModelDbContext db = new ModelDbContext();
 
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
-            }
-        }
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
+        //public ApplicationSignInManager SignInManager
+        //{
+        //    get
+        //    {
+        //        return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+        //    }
+        //    private set
+        //    {
+        //        _signInManager = value;
+        //    }
+        //}
+        //public ApplicationUserManager UserManager
+        //{
+        //    get
+        //    {
+        //        return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        //    }
+        //    private set
+        //    {
+        //        _userManager = value;
+        //    }
+        //}
 
 
         public ActionResult Index()
@@ -59,6 +59,11 @@ namespace ECommerce.Controllers
         }
 
         public ActionResult Report()
+        {
+            return View();
+        }
+
+        public ActionResult Order()
         {
             return View();
         }

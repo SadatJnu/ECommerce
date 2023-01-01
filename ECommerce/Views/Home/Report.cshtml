@@ -1,9 +1,8 @@
-﻿
-<div class="jumbotron">
+﻿<div class="jumbotron">
     <div class="container">
         <div class="row">
             <div class="container">
-                <div class="row">
+                <div class="row" style="margin-top:20px;">
                     <div class="col-md-3">
                         <a href="~/Home/SellSummeryList/" target="_blank" class="btn btn-info">Report</a>
                     </div>
@@ -19,7 +18,7 @@
 <script>
 
     $(document).ready(function () {
-        
+
         $('#btnReport').on('click', function () {
             $.ajax({
                 type: "GET",
@@ -33,5 +32,7 @@
                 }
             });
         });
-    });   
+
+    });
+
 </script>

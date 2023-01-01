@@ -280,48 +280,28 @@
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\ObjectMapHelper.cs" />
     <Compile Include="Helpers\SqlHelper.cs" />
-    <Compile Include="Migrations\202210170429271_Initial.cs" />
-    <Compile Include="Migrations\202210170429271_Initial.designer.cs">
-      <DependentUpon>202210170429271_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\202212241649326_Initial.cs" />
+    <Compile Include="Migrations\202212241649326_Initial.designer.cs">
+      <DependentUpon>202212241649326_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202210171208319_AddColumn.cs" />
-    <Compile Include="Migrations\202210171208319_AddColumn.designer.cs">
-      <DependentUpon>202210171208319_AddColumn.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202210180627069_DropColumn.cs" />
-    <Compile Include="Migrations\202210180627069_DropColumn.designer.cs">
-      <DependentUpon>202210180627069_DropColumn.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202210190921049_AddNewColumn.cs" />
-    <Compile Include="Migrations\202210190921049_AddNewColumn.designer.cs">
-      <DependentUpon>202210190921049_AddNewColumn.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202210310507597_AddNewTable.cs" />
-    <Compile Include="Migrations\202210310507597_AddNewTable.designer.cs">
-      <DependentUpon>202210310507597_AddNewTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202210310636046_AddNewColumn1.cs" />
-    <Compile Include="Migrations\202210310636046_AddNewColumn1.designer.cs">
-      <DependentUpon>202210310636046_AddNewColumn1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202210310657534_AddNewColumn2.cs" />
-    <Compile Include="Migrations\202210310657534_AddNewColumn2.designer.cs">
-      <DependentUpon>202210310657534_AddNewColumn2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202211071100485_AddNewTableNavbar.cs" />
-    <Compile Include="Migrations\202211071100485_AddNewTableNavbar.designer.cs">
-      <DependentUpon>202211071100485_AddNewTableNavbar.cs</DependentUpon>
+    <Compile Include="Migrations\202301011728348_AddNewtblSizeInfo.cs" />
+    <Compile Include="Migrations\202301011728348_AddNewtblSizeInfo.designer.cs">
+      <DependentUpon>202301011728348_AddNewtblSizeInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BaseEntity.cs" />
+    <Compile Include="Models\SizeInfo.cs" />
     <Compile Include="Models\CommonResponse.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\DivCreate.cs" />
     <Compile Include="Models\Logs.cs" />
     <Compile Include="Models\NavBar.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\AspNetUsers.cs" />
     <Compile Include="Models\Sell.cs" />
+    <Compile Include="ModelView\CategoryViewModel.cs" />
     <Compile Include="ModelView\NavBarViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
@@ -329,6 +309,7 @@
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\CustomerRepository.cs" />
     <Compile Include="Repository\AspNetUsersRepository.cs" />
+    <Compile Include="Repository\SizeInfoRepository.cs" />
     <Compile Include="Repository\SellRepository.cs" />
     <Compile Include="Repository\ProductRepository.cs" />
     <Compile Include="Services\CommonRepository.cs" />
@@ -336,6 +317,7 @@
     <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Services\IServiceCommon.cs" />
     <Compile Include="Services\AspNetUsersService.cs" />
+    <Compile Include="Services\SizeInfoService.cs" />
     <Compile Include="Services\SellService.cs" />
     <Compile Include="Services\ProductService.cs" />
   </ItemGroup>
@@ -347,29 +329,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202210170429271_Initial.resx">
-      <DependentUpon>202210170429271_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202212241649326_Initial.resx">
+      <DependentUpon>202212241649326_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202210171208319_AddColumn.resx">
-      <DependentUpon>202210171208319_AddColumn.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202210180627069_DropColumn.resx">
-      <DependentUpon>202210180627069_DropColumn.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202210190921049_AddNewColumn.resx">
-      <DependentUpon>202210190921049_AddNewColumn.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202210310507597_AddNewTable.resx">
-      <DependentUpon>202210310507597_AddNewTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202210310636046_AddNewColumn1.resx">
-      <DependentUpon>202210310636046_AddNewColumn1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202210310657534_AddNewColumn2.resx">
-      <DependentUpon>202210310657534_AddNewColumn2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202211071100485_AddNewTableNavbar.resx">
-      <DependentUpon>202211071100485_AddNewTableNavbar.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202301011728348_AddNewtblSizeInfo.resx">
+      <DependentUpon>202301011728348_AddNewtblSizeInfo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

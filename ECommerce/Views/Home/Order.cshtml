@@ -1,0 +1,154 @@
+﻿<style>
+    fieldset.scheduler-border {
+        border: 1px solid #ccc;
+        padding: 0px 5px 10px 5px;
+        -webkit-box-shadow: 0px 0px 0px 0px #000;
+        box-shadow: 0px 0px 0px 0px #000;
+        height: 310px !important;
+    }
+
+    legend.scheduler-border {
+        margin-bottom: 5px;
+        font-size: 25px;
+        font-weight: bold;
+        text-align: left;
+        width: auto;
+        padding: 0 0px;
+        border-bottom: none;
+        margin-left: 5px;
+    }
+
+    .label {
+        font-size: 13px !important;
+        color: black !important;
+    }
+
+</style>
+
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <div class="row" style="margin-top:20px;">
+                    <label class="col-md-2 control-label"> Category :</label>
+                    <div class="col-md-4">
+                        <select class="form-control" name="CategoryId" id="CategoryId" onchange="createBlock(this.value)"  required>
+                            <option value="" selected>--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <hr />
+                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                    <div id="divsection">
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/App.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        GetCategoryList();
+
+        function GetCategoryList() {
+            $.ajax({
+                type: 'GET',
+                url: baseUrl + 'Values/GetCategoryList/',
+                success: function (res) {
+                    $.each(res.result, function (i, item) {
+                        $('#CategoryId').append($('<option>', {
+                            value: item.Id,
+                            text: item.Name
+                        }));
+                    });
+                }
+            });
+        };
+
+        $("body").on('change', 'input', function (e) {
+            var value = $(this).val();
+            var lblTxt = $(this).attr("id");
+            SaveData(value, lblTxt);
+        });
+
+        function SaveData(value, lblTxt) {
+            debugger;
+            $.ajax({
+                type: 'POST',
+                url: baseUrl + 'Values/SaveData/' + $('#CategoryId').val() + "/" + value + "/" + lblTxt,
+                success: function (res) {
+                    console.log(res);
+                    toastr["success"](res.Message);
+                },
+                error: function (res) {
+                    console.log(res);
+                    toastr["error"](res.Message);
+                }
+            });
+        }
+
+        //var data = {};
+        //$("body").on('change', 'input', function () {
+        //    $('fieldset> label, input').each(function () {
+        //        debugger;
+        //        data[$(this).attr('id')] = $(this).val();
+        //    });
+        //    console.log(data);
+        //});
+
+    });
+
+    function createBlock(val) {
+        if (val != "")
+        {
+            $.ajax({
+                type: "GET",
+                url: baseUrl + "Values/getDataList/" + val,
+                contentType: "application/json; charset=utf-8",
+                success: function (res) {
+                    let htmlData = '';
+                    htmlData += "<div class='row'>";
+                    htmlData += "<div class='col-sm-12 col-xs-12 col-md-12 col-lg-12'>";
+                    htmlData += "<div class='row'>";
+                    for (i = 0; i < res.lst.length; i++) {
+                        htmlData +=
+                            "<div class='col-sm-4 col-xs-4 col-md-4 col-lg-4'>"
+                        + "<fieldset class='scheduler-border' id='" + i + "'> <legend class='scheduler-border'>" + res.lst[i]['Name'] + "</legend>";
+                        let lblTxt = [];
+                        var txt = "";
+                        var concatTxt = "";
+                        lblTxt = res.lst[i]['LabelTxt'].split(',');
+                        for (j = 0; j < lblTxt.length; j++) {
+                            txt = lblTxt[j];
+                            concatTxt = txt.replace(" ", ",");
+                            htmlData += "<label class='label' for=" + concatTxt + "> " + txt + " ";
+                            htmlData += "</label > ";
+                            htmlData += "<input class='form-control' id=" + concatTxt + " name=" + concatTxt + " />";
+                        }
+
+                        htmlData += "</fieldset>"
+                            + "</div>"
+                    };
+
+                    htmlData += "</div>";
+                    htmlData += "</div>";
+                    htmlData += "</div>";
+
+                    $("#divsection").html(htmlData);
+                },
+                error: function (res) {
+                    console.log(res);
+                }
+            });
+        }
+    };
+
+
+</script>

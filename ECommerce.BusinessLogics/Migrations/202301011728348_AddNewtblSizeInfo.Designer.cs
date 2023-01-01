@@ -7,13 +7,13 @@ namespace ECommerce.BusinessLogics.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class AddNewColumn : IMigrationMetadata
+    public sealed partial class AddNewtblSizeInfo : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddNewColumn));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddNewtblSizeInfo));
         
         string IMigrationMetadata.Id
         {
-            get { return "202210190921049_AddNewColumn"; }
+            get { return "202301011728348_AddNewtblSizeInfo"; }
         }
         
         string IMigrationMetadata.Source

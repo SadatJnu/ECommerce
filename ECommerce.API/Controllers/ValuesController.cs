@@ -3,6 +3,7 @@ using ECommerce.BusinessLogics.AppData;
 using ECommerce.BusinessLogics.DbContexts;
 using ECommerce.BusinessLogics.Helpers;
 using ECommerce.BusinessLogics.Models;
+using ECommerce.BusinessLogics.ModelView;
 using ECommerce.BusinessLogics.Repository;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace ECommerce.API.Controllers
     [AllowAnonymous]
     public class ValuesController : ApiController
     {
+        ModelDbContext _db = new ModelDbContext();
 
         [Route("Values/AddUpdateData/")]
         [HttpPut]
@@ -197,6 +199,91 @@ namespace ECommerce.API.Controllers
                 }
 
                 return Json(new { Status = "success", Message = "Save Successful." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = "error", Message = ex.Message.ToString() });
+            }
+        }
+
+        [Route("Values/GetCategoryList/")]
+        [HttpGet]
+        public IHttpActionResult GetCategoryList()
+        {
+            try
+            {
+                var result = _db.Category.Where(x => x.IsDeleted == false).ToList();
+
+                return Json(new { result, Message = "Data Found." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = "error", Message = ex.Message.ToString() });
+            }
+        }
+
+        [Route("Values/getDataList/{Id}")]
+        [HttpGet]
+        public IHttpActionResult getDataList(int Id)
+        {
+            try
+            {
+                DataSet ds = new DataSet();
+                List<CategoryViewModel> lst = new List<CategoryViewModel>();
+
+                ds = SqlHelper.ExecuteDataset(Constants.ConnectionString, CommandType.Text, "EXEC GetCategoryList @Id =" + Id + " ");
+
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    lst.Add(
+                    new CategoryViewModel
+                    {
+                        CategoryId = Convert.ToInt32(dr["CategoryId"]),
+                        Name = dr["Name"].ToString(),
+                        LabelTxt = dr["LabelTxt"].ToString(),
+                        Total = Convert.ToInt32(dr["Total"]),
+                    });
+                }
+
+                return Json(new { lst , Message = "Data Found." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = "error", Message = ex.Message.ToString() });
+            }
+        }
+
+        [Route("Values/SaveData/{ID}/{Size}/{LabelTxt}")]
+        [HttpPost]
+        public IHttpActionResult SaveData(int ID, string Size, string LabelTxt)
+        {
+            try
+            {
+                LabelTxt = LabelTxt.Replace(",", " ");
+                var info = DataAccess.Instance.sizeInfo.Filter(e => e.IsDeleted == false && e.LabelTxt == LabelTxt && e.CategoryId == ID).FirstOrDefault();
+
+                if (info == null)
+                {
+                    SizeInfo entity = new SizeInfo();
+                    entity.CategoryId = ID;
+                    entity.Size = Size;
+                    entity.LabelTxt = LabelTxt;
+                    entity.IsDeleted = false;
+                    entity.AddDate = DateTime.Now;
+
+                    var result = DataAccess.Instance.sizeInfo.Add(entity);
+
+                    return Json(new { Status = "success", Message = "Save Successful." });
+                }
+                else
+                {
+                    info.Size = Size;
+                    info.LabelTxt = LabelTxt;
+                    info.UpdateDate = DateTime.Now;
+                    var result = DataAccess.Instance.sizeInfo.Update(info);
+
+                    return Json(new { Status = "success", Message = "Update Successful." });
+                }
             }
             catch (Exception ex)
             {

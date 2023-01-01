@@ -355,6 +355,7 @@
     <Content Include="Views\Navbar\_LeftNavbar.cshtml" />
     <Content Include="Views\Shared\_Layout_20221108.cshtml" />
     <Content Include="Views\Home\Sell.cshtml" />
+    <Content Include="Views\Home\Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

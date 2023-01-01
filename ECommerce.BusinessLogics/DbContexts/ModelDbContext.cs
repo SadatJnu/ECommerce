@@ -31,5 +31,8 @@ namespace ECommerce.BusinessLogics.DbContexts
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<NavBar> NavBar { get; set; }
         public DbSet<Logs> Logs { get; set; }
+        public DbSet<DivCreate> DivCreate { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<SizeInfo> SizeInfo { get; set; }
     }
 }
