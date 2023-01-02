@@ -34,10 +34,10 @@ namespace ECommerce.BusinessLogics.Services
             return _SizeInfoRepository.Filter(filter, orderBy);
         }
 
-        public bool Remove(long id)
+        public bool Remove(long categoryId)
         {
             SizeInfo entity = new SizeInfo();
-            entity = _SizeInfoRepository.SingleOrDefault(e => e.Id == id);
+            entity = _SizeInfoRepository.SingleOrDefault(e => e.CategoryId == categoryId);
             entity.IsDeleted = true;
             entity.UpdateDate = DateTime.Now;
             return _SizeInfoRepository.Update(entity);

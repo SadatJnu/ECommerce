@@ -11,6 +11,7 @@ namespace ECommerce.BusinessLogics.ModelView
         public int CategoryId { get; set; }
         public string Name { get; set; }
         public string LabelTxt { get; set; }
+        public string Size { get; set; }
         public int Total { get; set; }
     }
 }

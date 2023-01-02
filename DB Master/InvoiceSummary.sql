@@ -9,9 +9,8 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
---			InvoiceSummary 1,'2022-10-19 20:11:40.967'
+--			InvoiceSummary 1,'2023-01-02 20:11:40.967','T-201202300001'
 
---			InvoiceSummary 1,'2022-10-31 20:11:40.967'
 
 CREATE PROCEDURE [dbo].[InvoiceSummary]  
 (

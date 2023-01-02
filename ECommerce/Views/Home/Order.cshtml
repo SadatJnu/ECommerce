@@ -32,7 +32,7 @@
                 <div class="row" style="margin-top:20px;">
                     <label class="col-md-2 control-label"> Category :</label>
                     <div class="col-md-4">
-                        <select class="form-control" name="CategoryId" id="CategoryId" onchange="createBlock(this.value)"  required>
+                        <select class="form-control" name="CategoryId" id="CategoryId" onchange="createBlock(this.value)" required>
                             <option value="" selected>--Select--</option>
                         </select>
                     </div>
@@ -42,11 +42,33 @@
                     <div id="divsection">
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
+
+    <div style="top:5px;">
+        <section class="content">
+            <div class="row" style="padding-bottom: 10px;margin-right:0px;margin-left:0px;">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="box box-info">
+                        <table class="table table-bordered no-margin display table-striped table-condensed table-hover table-responsive display nowrap">
+                            <thead>
+                                <tr style="background: lightgray;">
+                                    <th style="width:5%">SL</th>
+                                    <th style="width:15%">Category Name</th>
+                                    <th style="width:15%">Description</th>
+                                    <th colspan="2" style="width:2%; text-align:center;">Modify</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lst"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
 </div>
 
 <script src="~/Scripts/App.js"></script>
@@ -56,6 +78,7 @@
 
     $(document).ready(function () {
         GetCategoryList();
+        GetTotalSizeInfoList();
 
         function GetCategoryList() {
             $.ajax({
@@ -68,6 +91,42 @@
                             text: item.Name
                         }));
                     });
+                }
+            });
+        };
+
+        function GetTotalSizeInfoList() {
+            let rowCount = 0;
+            let htmlData = '';
+            $.ajax({
+                type: "GET",
+                url: baseUrl + 'Values/GetTotalSizeInfoList/',
+                contentType: "application/json; charset=utf-8",
+                success: function (res) {
+                    console.log(res.result.length);
+                    if (res.result.length == 0) {
+                        $("#lst").html('<th>\
+                             <th colspan="3" class="text-center text-danger">' + 'Record not found!' + '</th>\
+                            </th>');
+                    }
+                    else {
+                        for (i = 0; i < res.result.length; i++) {
+                            rowCount = rowCount + 1;
+                            htmlData +=
+                                '<tr id ="' + res.result[i]['CategoryId'] + '">\
+                                    <td>' + rowCount + '</td>\
+                                    <td>' + res.result[i]['Name'] + '</td>\
+                                    <td>' + res.result[i]['Descriptions'] + '</td>\
+                                    <th style="text-align:center !important;">\ <button type="button" id="' + res.result[i]['CategoryId'] + '" name="btnEdit" value="' + res.result[i]['CategoryId'] + '" class="btn btn-primary btnEdit" style="width:70px;">Edit</button> \</th>\
+                        <th style="text-align:center !important;">\ <button type="button" id="' + res.result[i]['CategoryId'] + '" name="btnDelete" value="' + res.result[i]['CategoryId'] + '" class="btn btn-danger btnDelete" style="width:70px;">Delete</button> \</th>\
+                               </tr>';
+                        };
+                        $("#lst").html(htmlData);
+                    }
+                },
+                error: function (res) {
+                    console.log(res);
+                    toastr["error"](res.Message);
                 }
             });
         };
@@ -106,6 +165,7 @@
     });
 
     function createBlock(val) {
+        $("#divsection").html('');
         if (val != "")
         {
             $.ajax({
@@ -127,7 +187,7 @@
                         lblTxt = res.lst[i]['LabelTxt'].split(',');
                         for (j = 0; j < lblTxt.length; j++) {
                             txt = lblTxt[j];
-                            concatTxt = txt.replace(" ", ",");
+                            concatTxt = txt.replace(" ", "n");
                             htmlData += "<label class='label' for=" + concatTxt + "> " + txt + " ";
                             htmlData += "</label > ";
                             htmlData += "<input class='form-control' id=" + concatTxt + " name=" + concatTxt + " />";
@@ -142,6 +202,10 @@
                     htmlData += "</div>";
 
                     $("#divsection").html(htmlData);
+
+                    if (!IsUpdate) {
+                        IsUpdate = true;
+                    }
                 },
                 error: function (res) {
                     console.log(res);
@@ -150,5 +214,55 @@
         }
     };
 
+    var IsUpdate = true;
+
+    $('body').on('click', '.btnEdit', function (e) {
+        IsUpdate = false;
+        var categoryId = e.target.value;  
+        createBlock(categoryId);
+        $('#CategoryId').val(categoryId);
+
+        if (!IsUpdate) {
+            $.ajax({
+                type: "GET",
+                url: baseUrl + 'Values/GetEditSizeInfoDataById/' + categoryId,
+                contentType: "application/json; charset=utf-8",
+                success: function (res) {
+                    console.log(res.lst);
+                    debugger;
+                    for (k = 0; k < res.lst.length; k++) {
+                        var txt = res.lst[k].LabelTxt;
+                        txt = res.lst[k].LabelTxt.replace(" ", "n");
+                        $('#' + txt).val(res.lst[k].Size);
+                    }                    
+                },
+                error: function (res) {
+                    console.log(res);
+                    toastr["error"](res.Message);
+                }
+            });
+        }        
+    });
+
+    $('body').on('click', '.btnDelete', function (e) {
+        var categoryId = e.target.value;
+        var _confirm = confirm("Are you sure you want to delete this ?");
+        if (_confirm == true) {
+            $.ajax({
+                type: "Delete",
+                url: baseUrl + 'Values/DeletSizeInfoItem/' + categoryId,
+                contentType: "application/json; charset=utf-8",
+                success: function (res) {
+                    window.location.reload();
+                    toastr["success"](res.Message);
+                },
+                error: function (res) {
+                    console.log(res);
+                    toastr["error"](res.Message);
+                }
+            });
+        }
+        _confirm = false;
+    });
 
 </script>

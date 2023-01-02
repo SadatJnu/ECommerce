@@ -259,8 +259,8 @@ namespace ECommerce.API.Controllers
         {
             try
             {
-                LabelTxt = LabelTxt.Replace(",", " ");
-                var info = DataAccess.Instance.sizeInfo.Filter(e => e.IsDeleted == false && e.LabelTxt == LabelTxt && e.CategoryId == ID).FirstOrDefault();
+                LabelTxt = LabelTxt.Replace("n", " ");
+                var info = DataAccess.Instance.sizeInfoService.Filter(e => e.IsDeleted == false && e.LabelTxt == LabelTxt && e.CategoryId == ID).FirstOrDefault();
 
                 if (info == null)
                 {
@@ -271,7 +271,7 @@ namespace ECommerce.API.Controllers
                     entity.IsDeleted = false;
                     entity.AddDate = DateTime.Now;
 
-                    var result = DataAccess.Instance.sizeInfo.Add(entity);
+                    var result = DataAccess.Instance.sizeInfoService.Add(entity);
 
                     return Json(new { Status = "success", Message = "Save Successful." });
                 }
@@ -280,7 +280,7 @@ namespace ECommerce.API.Controllers
                     info.Size = Size;
                     info.LabelTxt = LabelTxt;
                     info.UpdateDate = DateTime.Now;
-                    var result = DataAccess.Instance.sizeInfo.Update(info);
+                    var result = DataAccess.Instance.sizeInfoService.Update(info);
 
                     return Json(new { Status = "success", Message = "Update Successful." });
                 }
@@ -290,6 +290,67 @@ namespace ECommerce.API.Controllers
                 return Json(new { Status = "error", Message = ex.Message.ToString() });
             }
         }
+
+        [Route("Values/GetTotalSizeInfoList/")]
+        [HttpGet]
+        public IHttpActionResult GetTotalSizeInfoList()
+        {
+            try
+            {
+                DataTable result = DataAccess.Instance.sizeInfoService.GetBySp("GetTotalSizeInfoList");
+
+                return Json(new { result, Message = "Data Found." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = "error", Message = ex.Message.ToString() });
+            }
+        }
+
+        [Route("Values/GetEditSizeInfoDataById/{categoryId}")]
+        [HttpGet]
+        public IHttpActionResult GetEditGetEditSizeInfoDataByIdDataById(int categoryId)
+        {
+            try
+            {
+                List<CategoryViewModel> lst = new List<CategoryViewModel>();
+                DataSet ds = new DataSet();
+                ds = SqlHelper.ExecuteDataset(Constants.ConnectionString, CommandType.Text, "EXEC GetCategoryListForDetails @CategoryId =" + categoryId + " ");
+
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    lst.Add(
+                    new CategoryViewModel
+                    {
+                        CategoryId = Convert.ToInt32(dr["CategoryId"]),
+                        LabelTxt = dr["LabelTxt"].ToString(),
+                        Size = dr["Size"].ToString(),
+                    });
+                }
+
+                return Json(new { lst, Message = "Data Found." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = "error", Message = ex.Message.ToString() });
+            }
+        }
+
+        [Route("Values/DeletSizeInfoItem/{categoryId}")]
+        [HttpDelete]
+        public IHttpActionResult DeletSizeInfoItem(int categoryId)
+        {
+            try
+            {
+                var results = DataAccess.Instance.sizeInfoService.GetBySpWithParam("DeletSizeInfoItem", new object[] { categoryId });
+                return Json(new { Status = results, Message = "Delete Successful." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = "error", Message = ex.Message.ToString() });
+            }
+        }
+
 
     }
 }

@@ -19,7 +19,7 @@ namespace ECommerce.BusinessLogics.AppData
 
         public AspNetUsersService aspNetUsersService = new AspNetUsersService();
 
-        public SizeInfoService sizeInfo = new SizeInfoService();
+        public SizeInfoService sizeInfoService = new SizeInfoService();
 
 
         private static object _sync = new object();
