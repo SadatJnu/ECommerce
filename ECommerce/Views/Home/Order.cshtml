@@ -76,7 +76,7 @@
 
 <script>
 
-    $(document).ready(function () {
+    $(document).ready(function () {        
         GetCategoryList();
         GetTotalSizeInfoList();
 
@@ -164,6 +164,8 @@
 
     });
 
+    var IsUpdate = false;
+
     function createBlock(val) {
         $("#divsection").html('');
         if (val != "")
@@ -203,8 +205,26 @@
 
                     $("#divsection").html(htmlData);
 
-                    if (!IsUpdate) {
-                        IsUpdate = true;
+                    if (IsUpdate) {
+                        $.ajax({
+                            type: "GET",
+                            url: baseUrl + 'Values/GetEditSizeInfoDataById/' + val,
+                            contentType: "application/json; charset=utf-8",
+                            success: function (response) {
+                                console.log(response.lst);
+                                debugger;
+                                for (k = 0; k < response.lst.length; k++) {
+                                    var txt = response.lst[k].LabelTxt;
+                                    txt = response.lst[k].LabelTxt.replace(" ", "n");
+                                    $('#' + txt).val(response.lst[k].Size);
+                                }
+                                IsUpdate = false;
+                            },
+                            error: function (response) {
+                                console.log(response);
+                                toastr["error"](response.Message);
+                            }
+                        });
                     }
                 },
                 error: function (res) {
@@ -212,36 +232,13 @@
                 }
             });
         }
-    };
-
-    var IsUpdate = true;
+    };       
 
     $('body').on('click', '.btnEdit', function (e) {
-        IsUpdate = false;
-        var categoryId = e.target.value;  
-        createBlock(categoryId);
+        IsUpdate = true;
+        var categoryId = e.target.value;
         $('#CategoryId').val(categoryId);
-
-        if (!IsUpdate) {
-            $.ajax({
-                type: "GET",
-                url: baseUrl + 'Values/GetEditSizeInfoDataById/' + categoryId,
-                contentType: "application/json; charset=utf-8",
-                success: function (res) {
-                    console.log(res.lst);
-                    debugger;
-                    for (k = 0; k < res.lst.length; k++) {
-                        var txt = res.lst[k].LabelTxt;
-                        txt = res.lst[k].LabelTxt.replace(" ", "n");
-                        $('#' + txt).val(res.lst[k].Size);
-                    }                    
-                },
-                error: function (res) {
-                    console.log(res);
-                    toastr["error"](res.Message);
-                }
-            });
-        }        
+        createBlock(categoryId);
     });
 
     $('body').on('click', '.btnDelete', function (e) {
