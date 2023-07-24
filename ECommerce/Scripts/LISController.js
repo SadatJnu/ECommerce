@@ -17,7 +17,6 @@
     $scope.saveButtonDisable = true;
 
     $scope.PathologistFix = {};
-
     
 
     $scope.LabReportTopHeading = null;
